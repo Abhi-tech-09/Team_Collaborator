@@ -1,0 +1,97 @@
+*{
+    margin : 0 ; 
+    padding : 0 ;
+}
+
+body{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+.editor-container{
+    width:60vw ; 
+    height : 100vh ; 
+    background-color: #F3F3F3;
+}
+
+#editor{
+    height : 90% ; 
+    padding : 1rem ; 
+    margin : 1rem ; 
+    box-shadow: 0 0 5px rgba(0 , 0 , 0 ,0.5);
+    background-color:whitesmoke;
+}
+
+.ql-toolbar.ql-snow{
+    height: 6%;
+    text-align: center !important ; 
+    position: sticky !important ; 
+    box-shadow: 0 0 5px rgb(0 0 0 / 50%);
+    z-index : 1 ; 
+}
+
+.chat-container{
+    border: 1px solid black;
+    width: 40vw;
+    float: right;
+    height: 100vh;
+}
+
+#message-container{
+    height: 90%;
+    background: whitesmoke;
+    overflow-y: scroll;
+}
+
+.header{
+    height:5% ; 
+    text-align: center;
+}
+
+#send-container{
+    text-align: center;
+    height: 5%;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+}
+
+#message-input{
+    width: 100%;
+    padding: 0.1px;
+    line-height: 1.8rem;
+    margin-top: 0.2rem;
+    overflow-y: scroll;
+}
+
+#send-button{
+    border-radius: 0.2rem;
+}
+
+.right{
+    display: grid;
+    grid-template-rows: 1fr 2fr;
+    background: #c4ecc9;
+    width: fit-content;
+    min-width: 50%;
+    float: right;
+    padding: 0.4rem;
+    margin: 1rem 1rem;  
+    border-radius: 3px ; 
+}
+
+.left{
+    display: grid;
+    grid-template-rows: 1fr 2fr;
+    background-color: #eab5cf;
+    width:fit-content ; 
+    min-width: 50%;
+    float : left ; 
+    padding :0.4rem ; 
+    margin : 1rem 1rem ; 
+    border-radius: 3px ; 
+}
+
+.actualMessage{
+    align-self : center ; 
+}
+
