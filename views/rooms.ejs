@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChitChat | Alternative to WhatsApp</title>
+    <title>Doc-Fluent</title>
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -16,6 +17,7 @@
         crossorigin="anonymous"></script>
     <script>
         const roomName = "<%= roomName %>"
+        let chatObj = "<%= chatObj %>"
     </script>
 
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
@@ -37,11 +39,13 @@
             <h3>Welcome to ChitChat</h3>
         </div>
         <div id="message-container">
-
+            <i class="fas fa-paper-plane"></i>
         </div>
         <form id="send-container">
             <input type="text" id="message-input" placeholder="Write Message...">
-            <button class="btn-success" type="submit" id="send-button">Send</button>
+            <button type="submit" id="send-button"></button>
+
+
         </form>
     </div>
 </body>

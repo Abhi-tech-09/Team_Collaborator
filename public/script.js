@@ -19,7 +19,12 @@ const toolbar_options = [
 let quill = "";
 let nameuser = "";
 if (messageForm != null) {
-
+    // var chats = JSON.parse(!(JSON.stringify(chatObj)));
+    chats = chatObj.replaceAll('&#34;', '"')
+    console.log(JSON.parse(chats));
+    // if (chats.length > 0) {
+    //     console.log(JSON.parse(chats));
+    // }
     while (nameuser === "") {
         nameuser = prompt("Enter your name");
     }
@@ -33,6 +38,7 @@ if (messageForm != null) {
         socket.emit('send-chat-message', roomName, message);
         messageInput.value = "";
     })
+    getChats(roomName);
     quill = new Quill('#editor', {
         theme: 'snow',
         modules: { toolbar: toolbar_options }
@@ -43,6 +49,7 @@ if (messageForm != null) {
         }
     });
 }
+
 
 
 socket.on('receive-changes', (delta) => {
@@ -65,9 +72,9 @@ socket.on('user-connected', nameuser => {
 })
 
 socket.on('user-disconnected', nameuser => {
+    localStorage.setItem('chats', JSON.stringify(chats));
     appendMessage(`${nameuser} disconnected...`, "right");
 })
-
 
 
 socket.on('room-created', room => {
@@ -104,5 +111,20 @@ function appendformatMessage({ name, message }, position) {
     </div>`;
     messageContainer.append(messageElement);
     messageContainer.scrollTop = messageContainer.scrollHeight;
+}
+
+function getChats(roomName) {
+    chats = JSON.parse(chatObj.replaceAll('&#34;', '"'));
+    for (let i = 0; i < chats[roomName].length; i++) {
+        let name = chats[roomName][i].name;
+        let message = chats[roomName][i].message;
+        if (name == nameuser) {
+            appendformatMessage({ name, message }, "right");
+        }
+        else {
+            appendformatMessage({ name, message }, "left");
+        }
+
+    }
 }
 

@@ -52,7 +52,8 @@ body{
     text-align: center;
     height: 5%;
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 9fr 1fr;
+    grid-column-gap: 6px;
 }
 
 #message-input{
@@ -61,10 +62,16 @@ body{
     line-height: 1.8rem;
     margin-top: 0.2rem;
     overflow-y: scroll;
+    border-radius: 1rem;
+    text-align: center;
+    border: 1px solid black;
 }
 
 #send-button{
-    border-radius: 0.2rem;
+    background-image: url(/images/send.svg);
+    background-repeat: no-repeat;
+    background-color: whitesmoke;
+    border: 1px;
 }
 
 .right{
