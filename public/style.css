@@ -39,7 +39,7 @@ body{
 
 #message-container{
     height: 90%;
-    background: whitesmoke;
+    /* background: whitesmoke; */
     overflow-y: scroll;
 }
 
@@ -206,6 +206,11 @@ h1 {
     left: 80%;
     animation: animate 5s linear infinite;
 } 
+.dark-mode {
+    background-color: black;
+    color: rgb(4, 0, 255);
+  }
+  
 
 @keyframes animate {
     /* initial stage */
