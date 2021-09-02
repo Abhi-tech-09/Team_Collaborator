@@ -6,61 +6,71 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doc-Fluent</title>
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <!-- for css -->
     <link rel="stylesheet" href="style.css">
+    <!-- fonts for content -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kaisei+HarunoUmi:wght@500&family=Source+Sans+Pro:ital,wght@1,300&display=swap"
+        rel="styles.css">
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
+    <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script defer src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
-    <script>
-        const roomName = "<%= roomName %>"
-        let chatObj = "<%= chatObj %>"
-    </script>
 
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-    <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
-    <script defer src="script.js"></script>
-    <!-- <script src="editor.js"></script> -->
+
 </head>
 
 <body>
-
-    <div class="editor-container">
-        <div id="editor">
+    <div class="wrapper">
+        <img src="/images/docfluent.png">
+        <div class="box">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
-
     </div>
 
-    <div class="chat-container"  >
-         <button onclick="dark()">Dark mode </button>
-        <div class="header">
-            <h3 style="color: blue;"   >Welcome to ChitChat</h3>
-           
-        </div>
-        <div id="message-container">
-            <i class="fas fa-paper-plane"></i>
-        </div>
-        <form id="send-container">
-            <input type="text" id="message-input" placeholder="Write Message...">
-            <button type="submit" id="send-button"></button>
+    <div id="roomContainer">
+        <% Object.keys(rooms).forEach(room=> { %>
+            <div class="roomList">
+                <span class="badge bg-warning text-dark">
+                    <%= room %>
+                </span>
+                <a class="btn btn-sm btn-primary" href="/<%= room %>" role="button">Join</a>
+            </div>
 
+            <% }) %>
+    </div>
 
+    <br>
+
+    <div class="elements">
+        <form action="/room" method="post">
+            <div class="row">
+                <div class="col">
+                    <input type="text" name="room" class="form-control" placeholder="Enter room name" , required>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary" type="submit">Create Room</button>
+                </div>
+            </div>
         </form>
     </div>
-    <script>
-        function dark() {
-           var element = document.body;
-           element.classList.toggle("dark-mode");
-        //   var x= document.getElementById("message-container")
-        //   x.classList.toggle("dark-mode")
-          document.getElementsByClassName('left').style.background ="blue";
-          
-        }
-        </script>
+
 </body>
+
 
 
 </html>
