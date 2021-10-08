@@ -219,3 +219,21 @@ h1 {
         opacity: 0;
     }
 }
+
+.auth{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+}
+
+.signin{
+    background-color: #ff006f;
+    border: none;
+}
+.login{
+    background-color: #e58d18;
+    border: none;
+}
+
+

@@ -18,18 +18,17 @@ const toolbar_options = [
 ];
 let quill = "";
 let nameuser = "";
+let files = {};
 if (messageForm != null) {
     // var chats = JSON.parse(!(JSON.stringify(chatObj)));
     chats = chatObj.replaceAll('&#34;', '"')
     console.log(JSON.parse(chats));
-    // if (chats.length > 0) {
-    //     console.log(JSON.parse(chats));
-    // }
+
     while (nameuser === "") {
         nameuser = prompt("Enter your name");
     }
     appendMessage('You Joined...', "right");
-    socket.emit('new-user', roomName, nameuser);
+    socket.emit('new-user', roomName, nameuser)
 
     messageForm.addEventListener('submit', e => {
         e.preventDefault();
@@ -43,11 +42,15 @@ if (messageForm != null) {
         theme: 'snow',
         modules: { toolbar: toolbar_options }
     });
+    // document.querySelector('.ql-editor').innerText = JSON.parse(files[roomName]);
+
     quill.on('text-change', function (delta, oldDelta, source) {
+        // files[roomName] = JSON.stringify(document.querySelector('.ql-editor').innerText);
         if (source === 'user') {
             socket.emit("text-change", delta, roomName);
         }
     });
+
 }
 
 
@@ -69,25 +72,36 @@ socket.on('chat-message', data => {
 
 socket.on('user-connected', nameuser => {
     appendMessage(`${nameuser} connected...`, "left");
+
+
 })
+
+
 
 socket.on('user-disconnected', nameuser => {
     localStorage.setItem('chats', JSON.stringify(chats));
+
+    files[roomName] = document.querySelector('.ql-editor').innerText;
+    localStorage.setItem('files', JSON.stringify(files));
     appendMessage(`${nameuser} disconnected...`, "right");
 })
+
 
 
 socket.on('room-created', room => {
 
     const roomElement = document.createElement('div');
-    roomElement.innerText = room;
-    const roomLink = document.createElement('a');
-    roomLink.href = `/${room}`;
-    roomLink.innerText = 'Join';
-
+    roomElement.className = "roomList";
+    roomElement.innerHTML = `
+    <span class="badge bg-warning text-dark">
+                    ${room}
+                </span>
+    <a class="btn btn-sm btn-primary" href="/${room}" role="button">Join</a>
+    
+    `;
     roomContainer.append(roomElement);
 
-    roomContainer.append(roomLink);
+
 
 })
 
