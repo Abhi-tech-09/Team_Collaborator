@@ -142,3 +142,8 @@ function getChats(roomName) {
     }
 }
 
+
+user = user.replaceAll("&#34;", '"')
+user = JSON.parse(user)
+
+alert(`Hello ${user.email}`)

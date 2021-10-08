@@ -54,26 +54,23 @@
                             .signInWithEmailAndPassword(login, password)
                             .then(({ user }) => {
                                 console.log(user.email)
-                                return user.getIdToken().then((idToken) => {
-                                    // alert(idToken)
-                                    return fetch("/sessionLogin", {
-                                        method: "POST",
-                                        headers: {
-                                            Accept: "application/json",
-                                            "Content-Type": "application/json",
-                                            "CSRF-Token": Cookies.get("XSRF-TOKEN"),
-                                        },
-                                        body: JSON.stringify({ idToken, user }),
-                                    });
 
+                                // alert(idToken)
+                                fetch("/sessionLogin", {
+                                    method: "POST",
+                                    headers: {
+                                        Accept: "application/json",
+                                        "Content-Type": "application/json",
+                                    },
+                                    body: JSON.stringify({ user }),
                                 });
-                            })
-                            .then(() => {
-                                return firebase.auth().signOut();
-                            })
-                            .then(() => {
+                                // return firebase.auth().signOut();
+                                alert("heloo")
                                 window.location.assign("/dashboard");
-                            });
+
+
+                            })
+
 
                         return false;
                     });

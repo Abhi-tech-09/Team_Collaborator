@@ -61,7 +61,8 @@
         <form id="createRoom" autocomplete="off" action="/room" method="post">
             <div class="row">
                 <div class="col">
-                    <input type="text" name="room" class="form-control" placeholder="Enter room name" , required>
+                    <input id="roomname" type="text" name="room" class="form-control" placeholder="Enter room name" ,
+                        required>
                 </div>
                 <div class="col">
                     <button type="submit" class="btn btn-primary">Create Room</button>
@@ -70,31 +71,7 @@
         </form>
     </div>
 
-    <script>
 
-        window.addEventListener("DOMContentLoaded", () => {
-            document.getElementById('createRoom').addEventListener("submit", (e) => {
-                e.preventDefault();
-                user = user.replaceAll("&#34;", '"')
-                user = JSON.parse(user)
-                idToken = user.stsTokenManager.accessToken;
-                // user = user
-                return fetch("/sessionLogin", {
-                    method: "POST",
-                    headers: {
-                        Accept: "application/json",
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ idToken }),
-                }).then((res) => {
-                    console.log(res)
-                })
-            })
-
-
-        });
-
-    </script>
 
 </body>
 

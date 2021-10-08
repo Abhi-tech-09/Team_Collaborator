@@ -51,32 +51,14 @@
                         .auth()
                         .createUserWithEmailAndPassword(login, password)
                         .then(({ user }) => {
-                            return user.getIdToken().then((idToken) => {
-                                var ref = firebase.database().ref();
-                                alert(idToken);
-                                console.log(JSON.stringify({ idToken }));
-                                ref.child('users/' + user.uid).set({ name: login });
-                                return fetch("/sessionLogin", {
-                                    method: "POST",
-                                    headers: {
-                                        Accept: "application/json",
-                                        "Content-Type": "application/json",
-                                        "CSRF-Token": Cookies.get("XSRF-TOKEN"),
-                                    },
-                                    body: JSON.stringify({
-                                        idToken
-                                    }),
-                                });
 
-                            }).then((res) => { console.log(res.json()) })
-
-                        })
-                        .then(() => {
-                            return firebase.auth().signOut();
-                        })
-                        .then(() => {
+                            var ref = firebase.database().ref();
+                            ref.child('users/' + user.uid).set({ name: login });
                             window.location.assign("/logIn");
-                        });
+                            return firebase.auth().signOut();
+
+                        })
+
 
 
                     return false;
