@@ -1,22 +1,19 @@
-const { json } = require('express');
+const uniqid = require("uniqid")
 const cookieParser = require("cookie-parser");
 const csrf = require("csurf");
-// const bodyParser = require("body-parser");
+const jwt = require("jsonwebtoken")
 const express = require("express");
 const admin = require("firebase-admin");
 // const express = require('express');
 const app = express();
 const server = require('http').Server(app);
-const io = require('socket.io')(server
-);
+const io = require('socket.io')(server);
 const keys = require("./keys.json");
-
 admin.initializeApp({
     credential: admin.credential.cert(keys),
     databaseURL: "https://teamcollabarator-default-rtdb.firebaseio.com",
 });
 
-// const csrfMiddleware = csrf({ cookie: true });
 
 app.set('views', './views');
 app.set('view engine', 'ejs');
@@ -25,20 +22,29 @@ app.use(express.urlencoded({
     extended: true
 }))
 app.use(cookieParser());
-// app.use(csrfMiddleware);
 app.use(express.json());
 
 
 let rooms = {}
 let chats = {};
 let current_user;
+let id;
+let obj = {};
 
-// app.all("*", (req, res, next) => {
-//     res.cookie("XSRF-TOKEN", req.csrfToken());
-//     next();
-// });
+
 
 app.get('/', (req, res) => {
+    id = uniqid();
+    if (obj[id] == null) {
+        obj[id] = { name: null, email: null };
+    }
+    // console.log(socket.id);
+
+    res.redirect('/home')
+})
+app.get('/home', (req, res) => {
+
+    // console.log(obj[id].name, obj[id].email)
     res.render('index', { rooms: rooms })
 })
 
@@ -50,31 +56,74 @@ app.get('/logIn', (req, res) => {
 })
 
 app.get("/profile", function (req, res) {
-
-    res.render("profile")
+    if (current_user)
+        res.render("profile")
+    else
+        res.redirect("/logIn")
 });
 
 
 app.post("/sessionLogin", (req, res) => {
-    // const idToken = req.body.idToken.toString();
-    if (req.body.user)
-        current_user = req.body.user;
-    // console.log(current_user)
+    // console.log(req.body)
+    // // console.log("Inside session login", id);
+    // obj[id]["name"] = req.body.username;
+    // obj[id]["email"] = req.body.email;
+    // console.log(obj)
+    // res.redirect('/dashboard')
 
 
+    const user = {
+        name: req.body.username,
+        email: req.body.email
+    }
+    console.log(user);
+    // const token;
+    jwt.sign({ user }, 'secretkey', (err, token) => {
+        console.log(token)
+        res.cookie("jwt", token, {
+            expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+            httpOnly: true
+        })
+        res.json({ token })
 
+    })
+    console.log("Bhai kahan pe ho apap")
 
 });
 
 app.get("/sessionLogout", (req, res) => {
-    res.clearCookie("session");
-    res.redirect("/logIn");
+    current_user = null;
+    console.log("User logged out")
 });
 
+let curr_auth;
 app.get('/dashboard', (req, res) => {
-    console.log("in dashboard ", JSON.stringify(current_user));
-    res.render("dashboard", { rooms, current_user: JSON.stringify(current_user) });
+    // console.log(obj);
+    // if (obj[id]["name"] != null)
+    //     res.render("dashboard", { rooms, user: JSON.stringify(obj[id]) });
+    // else
+    //     res.redirect('/home')    
+
+    jwt.verify(req.cookies.jwt, 'secretkey', (err, authData) => {
+        if (err) {
+            console.log(err)
+            res.sendStatus(403);
+        } else {
+            console.log("Succes")
+            curr_auth = authData;
+            console.log("render")
+
+            // res.sendStatus(200);
+            res.render("dashboard", { rooms, curr_auth: JSON.stringify(authData) });
+        }
+    });
+
+
 })
+// app.get("/dashboard", (req, res) => {
+//     console.log(req.cookies.jwt);
+//     
+// })
 
 app.post('/room', (req, res) => {
     if (rooms[req.body.room] != null) {
@@ -91,17 +140,42 @@ app.post('/room', (req, res) => {
 
 app.get('/:room', (req, res) => {
     if (rooms[req.params.room] == null) {
-        return res.redirect('/')
+        return res.redirect('/home')
     }
     // console.log(chats);
     // console.log(JSON.stringify(chats));
-    res.render('rooms', { roomName: req.params.room, chatObj: JSON.stringify(chats) });
+    console.log(obj[id])
+    res.render('rooms', { roomName: req.params.room, chatObj: JSON.stringify(chats), user: JSON.stringify(obj[id]) });
 
 })
+
+// function verifyToken(req, res, next) {
+//     // Get auth header value
+//     const bearerHeader = req.headers['authorization'];
+//     console.log("bearedHeader", bearerHeader)
+//     // Check if bearer is undefined
+//     if (typeof bearerHeader !== 'undefined') {
+//         // Split at the space
+//         const bearer = bearerHeader.split(' ');
+//         // Get token from array
+//         const bearerToken = bearer[1];
+//         // Set the token
+//         req.token = bearerToken;
+//         // Next middleware
+//         next();
+//     } else {
+//         // Forbidden
+//         res.sendStatus(403);
+//     }
+
+// }
 
 server.listen(3000);
 
 io.on('connection', socket => {
+    // id = socket.id;
+    // obj[id] = { name: "Abhishek", email: "abhi@gmail.com" }
+
     socket.on('new-user', (room, name) => {
         socket.join(room)
 

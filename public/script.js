@@ -4,7 +4,12 @@ const messageContainer = document.getElementById('message-container');
 const messageForm = document.getElementById('send-container');
 const messageInput = document.getElementById('message-input');
 const roomContainer = document.getElementById('roomContainer');
-
+if (user !== null) {
+    console.log(user)
+    user = user.replaceAll("&#34;", '"');
+    user = JSON.parse(user)
+    alert(`Hello ${user.user.name}`);
+}
 
 const toolbar_options = [
     [{ header: [1, 2, 3, 4, 5, 6, false] }],
@@ -24,9 +29,16 @@ if (messageForm != null) {
     chats = chatObj.replaceAll('&#34;', '"')
     console.log(JSON.parse(chats));
 
-    while (nameuser === "") {
-        nameuser = prompt("Enter your name");
+    if (user !== null) {
+        nameuser = user['name'];
+        console.log(nameuser)
     }
+    else {
+        while (nameuser === "") {
+            nameuser = prompt("Enter your name");
+        }
+    }
+
     appendMessage('You Joined...', "right");
     socket.emit('new-user', roomName, nameuser)
 
@@ -87,7 +99,6 @@ socket.on('user-disconnected', nameuser => {
 })
 
 
-
 socket.on('room-created', room => {
 
     const roomElement = document.createElement('div');
@@ -143,7 +154,4 @@ function getChats(roomName) {
 }
 
 
-user = user.replaceAll("&#34;", '"')
-user = JSON.parse(user)
 
-alert(`Hello ${user.email}`)

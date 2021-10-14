@@ -23,6 +23,8 @@
 
         <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-database.js"></script>
+
         <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 
         <script>
@@ -53,25 +55,56 @@
                             .auth()
                             .signInWithEmailAndPassword(login, password)
                             .then(({ user }) => {
-                                console.log(user.email)
 
-                                // alert(idToken)
-                                fetch("/sessionLogin", {
-                                    method: "POST",
-                                    headers: {
-                                        Accept: "application/json",
-                                        "Content-Type": "application/json",
-                                    },
-                                    body: JSON.stringify({ user }),
-                                });
-                                // return firebase.auth().signOut();
-                                alert("heloo")
-                                window.location.assign("/dashboard");
+                                var ref = firebase.database().ref()
+                                em = login.replaceAll(".com", '')
+                                ref.child('users/').once("value").then(snap => {
+                                    s = snap.val();
+                                    // console.log(s, em, s[em])
+                                    if (s[em] != null) {
+                                        username = s[em]["name"];
+                                        fetch("/sessionLogin", {
+                                            method: "POST",
+                                            headers: {
+                                                Accept: "application/json",
+                                                "Content-Type": "application/json",
+                                            },
+                                            body: JSON.stringify({ username: username, email: login }),
+                                        }).then(response => {
+                                            // console.log("this is my response", response);
+                                            response.json().then(data => {
+                                                // console.log("Here is ", data)
+                                                console.log(data["token"])
+                                                localStorage.setItem("token", data["token"])
+                                                // window.location.assign("/dashboard")
+                                                fetch('/check', {
+                                                    method: "GET",
+                                                    headers: {
+                                                        Accept: "application/json",
+                                                        "Content-Type": "application/json",
+                                                        "authorization": "Bearer " + data['token']
+                                                    }
+                                                }).then(res => {
+                                                    console.log("going to dashboard")
+                                                    window.location.assign('/dashboard')
 
+                                                })
+                                            })
+
+
+                                        }).catch(err => {
+                                            console.log("Ye kya ho raha hai ")
+                                            console.log(err)
+                                        });
+                                        console.log("Ye kya ho raha hai ")
+                                    }
+                                    else {
+                                        console.log("Kya hai Bhai !!")
+                                    }
+
+                                })
 
                             })
-
-
                         return false;
                     });
             });

@@ -12,8 +12,10 @@
     <main>
         <section>
             <form id="signup">
-                <label>Signup</label>
-                <input type="text" name="login" />
+                <label>User Name</label>
+                <input type="text" name="username" />
+                <label>Email</label>
+                <input type="text" name="email" />
                 <label>Password</label>
                 <input type="password" name="password" />
                 <button>Sign up</button>
@@ -44,19 +46,29 @@
                 .getElementById("signup")
                 .addEventListener("submit", (event) => {
                     event.preventDefault();
-                    const login = event.target.login.value;
+                    const username = event.target.username.value;
+                    const email = event.target.email.value;
                     const password = event.target.password.value;
 
                     firebase
                         .auth()
-                        .createUserWithEmailAndPassword(login, password)
+                        .createUserWithEmailAndPassword(email, password)
                         .then(({ user }) => {
 
                             var ref = firebase.database().ref();
-                            ref.child('users/' + user.uid).set({ name: login });
-                            window.location.assign("/logIn");
-                            return firebase.auth().signOut();
-
+                            em = email.replaceAll(".com", "")
+                            ref.child('users/' + em).set({ name: username }).then((res) => {
+                                // alert(user.uid)
+                                // fetch("/sessionLogin", {
+                                //     method: "POST",
+                                //     headers: {
+                                //         Accept: "application/json",
+                                //         "Content-Type": "application/json",
+                                //     },
+                                //     body: JSON.stringify({ username, email }),
+                                // });
+                                window.location.assign("/logIn");
+                            })
                         })
 
 
