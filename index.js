@@ -34,18 +34,22 @@ let obj = {};
 
 
 app.get('/', (req, res) => {
-    id = uniqid();
-    if (obj[id] == null) {
-        obj[id] = { name: null, email: null };
-    }
-    // console.log(socket.id);
-
     res.redirect('/home')
 })
 app.get('/home', (req, res) => {
 
-    // console.log(obj[id].name, obj[id].email)
-    res.render('index', { rooms: rooms })
+    jwt.verify(req.cookies.jwt, 'secretkey', (err, authData) => {
+        if (err) {
+            res.render('index', { rooms: rooms })
+        } else {
+            // console.log("Succes")
+            curr_auth = authData;
+            // console.log("render")
+
+            res.redirect('/dashboard')
+        }
+    });
+
 })
 
 app.get('/signUp', (req, res) => {
@@ -56,21 +60,18 @@ app.get('/logIn', (req, res) => {
 })
 
 app.get("/profile", function (req, res) {
-    if (current_user)
-        res.render("profile")
-    else
-        res.redirect("/logIn")
+    jwt.verify(req.cookies.jwt, 'secretkey', (err, authData) => {
+        if (err) {
+            res.redirect("/logIn")
+        } else {
+            curr_auth = authData;
+            res.render("profile", { curr_auth: JSON.stringify(authData) });
+        }
+    });
 });
 
 
 app.post("/sessionLogin", (req, res) => {
-    // console.log(req.body)
-    // // console.log("Inside session login", id);
-    // obj[id]["name"] = req.body.username;
-    // obj[id]["email"] = req.body.email;
-    // console.log(obj)
-    // res.redirect('/dashboard')
-
 
     const user = {
         name: req.body.username,
@@ -82,7 +83,7 @@ app.post("/sessionLogin", (req, res) => {
         console.log(token)
         res.cookie("jwt", token, {
             expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
-            httpOnly: true
+            path: "/"
         })
         res.json({ token })
 
@@ -92,38 +93,32 @@ app.post("/sessionLogin", (req, res) => {
 });
 
 app.get("/sessionLogout", (req, res) => {
-    current_user = null;
+    res.clearCookie("jwt", {
+        path: "/",
+        domain: "localhost"
+    });
+    res.sendStatus(200);
     console.log("User logged out")
 });
 
+
 let curr_auth;
 app.get('/dashboard', (req, res) => {
-    // console.log(obj);
-    // if (obj[id]["name"] != null)
-    //     res.render("dashboard", { rooms, user: JSON.stringify(obj[id]) });
-    // else
-    //     res.redirect('/home')    
 
     jwt.verify(req.cookies.jwt, 'secretkey', (err, authData) => {
         if (err) {
-            console.log(err)
-            res.sendStatus(403);
+            res.redirect("/logIn")
         } else {
             console.log("Succes")
             curr_auth = authData;
             console.log("render")
 
-            // res.sendStatus(200);
             res.render("dashboard", { rooms, curr_auth: JSON.stringify(authData) });
         }
     });
 
 
 })
-// app.get("/dashboard", (req, res) => {
-//     console.log(req.cookies.jwt);
-//     
-// })
 
 app.post('/room', (req, res) => {
     if (rooms[req.body.room] != null) {
@@ -149,26 +144,6 @@ app.get('/:room', (req, res) => {
 
 })
 
-// function verifyToken(req, res, next) {
-//     // Get auth header value
-//     const bearerHeader = req.headers['authorization'];
-//     console.log("bearedHeader", bearerHeader)
-//     // Check if bearer is undefined
-//     if (typeof bearerHeader !== 'undefined') {
-//         // Split at the space
-//         const bearer = bearerHeader.split(' ');
-//         // Get token from array
-//         const bearerToken = bearer[1];
-//         // Set the token
-//         req.token = bearerToken;
-//         // Next middleware
-//         next();
-//     } else {
-//         // Forbidden
-//         res.sendStatus(403);
-//     }
-
-// }
 
 server.listen(3000);
 

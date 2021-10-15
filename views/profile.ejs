@@ -6,14 +6,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile page</title>
     <link rel="stylesheet" href="./mvp.css" />
+    <script defer>
+        let user = "<%= curr_auth %>"
+        user = user.replaceAll("&#34;", '"');
+        user = JSON.parse(user)
+        console.log(user)
+    </script>
 </head>
 
 <body>
     <main>
         <h1>Profile page</h1>
-        <p>This page is private</p>
-        <a href="/sessionLogout">Log out</a>
+        <p>Hi <span class="user">User</span> , this page is private and only visible to you</p>
+        <p>Email : <span class="email">User</span> </p>
+        <button id="logout">Logout</button>
     </main>
 </body>
+<script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js">
+</script>
+<script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
+<script>
+    document.querySelector(".user").innerHTML = `${user.user.name}`;
+    document.querySelector(".email").innerHTML = `${user.user.email}`;
+    const firebaseConfig = {
+        apiKey: "AIzaSyBvOJwAjPy34RM9eG7fsQOYxG8U6b838YE",
+        authDomain: "teamcollabarator.firebaseapp.com",
+        databaseURL: "https://teamcollabarator-default-rtdb.firebaseio.com",
+        projectId: "teamcollabarator",
+        storageBucket: "teamcollabarator.appspot.com",
+        messagingSenderId: "42443602275",
+        appId: "1:42443602275:web:7bcc482cb7a14210f83b56"
+    };
+    firebase.initializeApp(firebaseConfig);
+    document.getElementById("logout").addEventListener('click', (e) => {
+        e.preventDefault();
+        alert("Hello")
+        firebase.auth().signOut().then(() => {
+            console.log("Logged out");
+            fetch("/sessionLogout", {
+                method: "GET",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                credentials: 'include'
+
+
+            }).then((res) => {
+                window.location.assign("/logIn");
+            })
+
+        })
+    })
+</script>
 
 </html>

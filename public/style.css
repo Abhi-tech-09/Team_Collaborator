@@ -236,4 +236,21 @@ h1 {
     border: none;
 }
 
+.signinform{
+    padding: 10px;
+    border: none;
+
+    box-shadow: none;
+
+}
+
+.loginform{
+    padding: 10px;
+    border: none;
+
+    box-shadow: none;
+
+}
+
+
 

@@ -40,7 +40,7 @@
     </div>
 
     <div class="auth">
-        <a href="/profile">profile</a>
+        <button style="background-color: red;"><a href="/profile">profile</a></button>
         <button id="logout">Log Out</button>
 
     </div>
@@ -103,10 +103,13 @@
                     Accept: "application/json",
                     "Content-Type": "application/json",
                 },
-                body: null
+                credentials: 'include'
 
+
+            }).then((res) => {
+                window.location.assign("/logIn");
             })
-            window.location.assign("/logIn");
+
         })
     })
 

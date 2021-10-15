@@ -77,18 +77,10 @@
                                                 console.log(data["token"])
                                                 localStorage.setItem("token", data["token"])
                                                 // window.location.assign("/dashboard")
-                                                fetch('/check', {
-                                                    method: "GET",
-                                                    headers: {
-                                                        Accept: "application/json",
-                                                        "Content-Type": "application/json",
-                                                        "authorization": "Bearer " + data['token']
-                                                    }
-                                                }).then(res => {
-                                                    console.log("going to dashboard")
-                                                    window.location.assign('/dashboard')
 
-                                                })
+                                                console.log("going to dashboard")
+                                                window.location.assign('/dashboard')
+
                                             })
 
 

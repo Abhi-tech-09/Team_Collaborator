@@ -29,8 +29,8 @@ if (messageForm != null) {
     chats = chatObj.replaceAll('&#34;', '"')
     console.log(JSON.parse(chats));
 
-    if (user !== null) {
-        nameuser = user['name'];
+    if (user.user.name !== null) {
+        nameuser = user.user.name;
         console.log(nameuser)
     }
     else {
