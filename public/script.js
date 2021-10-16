@@ -82,11 +82,18 @@ socket.on('chat-message', data => {
 
 });
 
-socket.on('user-connected', nameuser => {
+socket.on('user-connected', (nameuser, allusers) => {
     appendMessage(`${nameuser} connected...`, "left");
+    console.log(allusers)
+    for (x in allusers) {
+        const userlist = document.createElement('div');
+        userlist.className = "user_name";
 
-
+        userlist.innerHTML = `<h6>${allusers[x]}</h6>`;
+        document.querySelector('.dropdown-content').append(userlist);
+    }
 })
+
 
 
 

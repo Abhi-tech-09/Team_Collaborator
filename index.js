@@ -140,10 +140,10 @@ app.get('/:room', (req, res) => {
 
     jwt.verify(req.cookies.jwt, 'secretkey', (err, authData) => {
         if (err) {
-            res.render("rooms", { roomName: req.params.room, chatObj: JSON.stringify(chats), curr_auth: null });
+            res.render("rooms", { roomName: req.params.room, chatObj: JSON.stringify(chats), curr_auth: null, roomslist: rooms });
         } else {
             curr_auth = authData;
-            res.render('rooms', { roomName: req.params.room, chatObj: JSON.stringify(chats), curr_auth: JSON.stringify(authData) });
+            res.render('rooms', { roomName: req.params.room, chatObj: JSON.stringify(chats), curr_auth: JSON.stringify(authData), roomslist: rooms });
         }
     });
 
@@ -162,8 +162,10 @@ io.on('connection', socket => {
         socket.join(room)
 
         rooms[room].users[socket.id] = name
-        socket.to(room).emit('user-connected', name);
+        socket.to(room).emit('user-connected', name, rooms[room].users);
         // socket.to(room).emit('fileChanges', room);
+        // socket.to(room).broadcast.emit('userlist', rooms[room].users)
+        console.log(rooms)
 
 
     })
