@@ -4,10 +4,9 @@ const messageContainer = document.getElementById('message-container');
 const messageForm = document.getElementById('send-container');
 const messageInput = document.getElementById('message-input');
 const roomContainer = document.getElementById('roomContainer');
-if (user !== null) {
+
+if (typeof user == 'object') {
     console.log(user)
-    user = user.replaceAll("&#34;", '"');
-    user = JSON.parse(user)
     alert(`Hello ${user.user.name}`);
 }
 
@@ -29,7 +28,8 @@ if (messageForm != null) {
     chats = chatObj.replaceAll('&#34;', '"')
     console.log(JSON.parse(chats));
 
-    if (user.user.name !== null) {
+    if (user !== null && typeof user == 'object') {
+
         nameuser = user.user.name;
         console.log(nameuser)
     }

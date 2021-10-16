@@ -26,6 +26,8 @@
     <script>
         let user = "<%= curr_auth %>"
         console.log(user)
+        user = user.replaceAll("&#34;", '"');
+        user = JSON.parse(user)
     </script>
 
 

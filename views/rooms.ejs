@@ -18,7 +18,11 @@
     <script>
         const roomName = "<%= roomName %>"
         let chatObj = "<%= chatObj %>"
-        let user = null;
+        let user = "<%= curr_auth %>"
+        user = user.replaceAll("&#34;", '"');
+        user = JSON.parse(user)
+        if (user == '') user = null;
+        console.log(user)
     </script>
 
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>

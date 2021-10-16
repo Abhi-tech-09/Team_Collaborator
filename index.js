@@ -137,10 +137,17 @@ app.get('/:room', (req, res) => {
     if (rooms[req.params.room] == null) {
         return res.redirect('/home')
     }
-    // console.log(chats);
-    // console.log(JSON.stringify(chats));
-    console.log(obj[id])
-    res.render('rooms', { roomName: req.params.room, chatObj: JSON.stringify(chats), user: JSON.stringify(obj[id]) });
+
+    jwt.verify(req.cookies.jwt, 'secretkey', (err, authData) => {
+        if (err) {
+            res.render("rooms", { roomName: req.params.room, chatObj: JSON.stringify(chats), curr_auth: null });
+        } else {
+            curr_auth = authData;
+            res.render('rooms', { roomName: req.params.room, chatObj: JSON.stringify(chats), curr_auth: JSON.stringify(authData) });
+        }
+    });
+
+    // res.render('rooms', { roomName: req.params.room, chatObj: JSON.stringify(chats), user: JSON.stringify(obj[id]) });
 
 })
 
