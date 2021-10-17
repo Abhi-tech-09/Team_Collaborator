@@ -137,8 +137,8 @@ h1 {
 
 .elements {
     position: absolute;
-    margin-top: 300px;
-    margin-left: 540px;
+    margin-top: 22rem;
+    margin-left: 50rem;
     font-family: 'Source Sans Pro', sans-serif;
 }
 
@@ -222,42 +222,80 @@ h1 {
         opacity: 0;
     }
 }
-
+.image{
+    margin-left: 8rem;
+    margin-top: 0px;
+}
 .auth{
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: 5rem;
+    right: 5rem;
     display: flex;
 }
 
 .signin{
-    background-color: #ff006f;
-    border: none;
+    outline: none;
+    display: block;
+    border: 0;
+    font-size: 16px;
+    line-height: 1;
+    padding: 16px 30px;
+    border-radius: 30px;
+    background-color: #ec2c7f;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s linear;
+    font-family: 'Open Sans', sans-serif;;
+}
+.signin:hover,
+.signin:focus{
+    background-color: #860d6c;
+}
+.signin:active{
+    background-color: #92077b;
 }
 .login{
+    outline: none;
+    display: block;
+    border: 0;
+    font-size: 16px;
+    line-height: 1;
+    padding: 16px 30px;
+    border-radius: 30px;
     background-color: #e58d18;
-    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s linear;
+    font-family: 'Open Sans', sans-serif;
+}
+.login:hover,
+.login:focus{
+    background-color: #945809;
+}
+.login:active{
+    background-color: #854e07;
 }
 
 .signinform{
-    padding: 10px;
-    border: none;
-
-    box-shadow: none;
-
+    padding-left: 85px;
+    background: none;
+    font-size: 18px;
+    font-family: 'Open Sans', sans-serif;;
 }
 
 .loginform{
-    padding: 10px;
-    border: none;
-
-    box-shadow: none;
-
+    padding-left: 85px;
+    background: none;
+    font-size: 18px;
+    border-radius: 10px;
+    font-family: 'Open Sans', sans-serif;;
 }
 
-
+.elements {
+    padding-right: 3rem;
+}
 .dropbtn {
-    background-color: #4CAF50;
+    background-color: #0d7c11;
     color: white;
     padding: 16px;
     font-size: 16px;
@@ -296,5 +334,29 @@ h1 {
     background-color: #3e8e41;
   }
 
+#roomee {
+    background-color: #066b0a;
+}  
 
+.profile {
+    color: white;
+    background-color: #097c2f;
+    border-radius: 10px;
+    margin: 10px;
+}
 
+#login {
+    color: white;
+}
+#signup {
+    color: white;
+}
+
+.input-center {
+    margin: auto;
+}
+
+#roomContainer {
+    margin-left: 55rem;
+    margin-top: 30rem;
+}

@@ -5,19 +5,38 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Firebase Server Auth</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
     <link rel="stylesheet" href="./mvp.css" />
+    <link rel="stylesheet" href="style.css">
 
 </head>
 
 <body>
+    <div class="wrapper">
+        <!-- <img src="/images/docfluent.png"> -->
+        <div class="box">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     <main>
         <section>
             <form id="login">
-                <label>Login</label>
-                <input type="text" name="login" />
-                <label>Password</label>
-                <input type="password" name="password" />
-                <button>Log in</button>
+                <div class="login-form" style="text-align: center;">
+                    <h2>Login</h2><hr>
+                    <label>Email</label>
+                    <input type="text" name="login" class="input-center" placeholder="you@gmail.com"/><br>
+                    <label>Password</label>
+                    <input type="password" name="password" class="input-center" placeholder="Password"/><br>
+                    <button style="background-color: #0c610f;">Log in</button>
+                </div>
             </form>
         </section>
 
@@ -102,6 +121,7 @@
             });
         </script>
     </main>
+    </div>
 </body>
 
 </html>
