@@ -128,7 +128,6 @@ app.post('/room', (req, res) => {
     rooms[req.body.room] = { users: {} };
     chats[req.body.room] = [];
     res.redirect(req.body.room);
-
     io.emit('room-created', req.body.room);
 
 })
@@ -147,40 +146,40 @@ app.get('/:room', (req, res) => {
         }
     });
 
-    // res.render('rooms', { roomName: req.params.room, chatObj: JSON.stringify(chats), user: JSON.stringify(obj[id]) });
-
 })
 
 
 server.listen(3000);
 
 io.on('connection', socket => {
-    // id = socket.id;
-    // obj[id] = { name: "Abhishek", email: "abhi@gmail.com" }
 
     socket.on('new-user', (room, name) => {
         socket.join(room)
-
         rooms[room].users[socket.id] = name
         socket.to(room).emit('user-connected', name, rooms[room].users);
-        // socket.to(room).emit('fileChanges', room);
-        // socket.to(room).broadcast.emit('userlist', rooms[room].users)
-        console.log(rooms)
+        console.log(rooms);
 
-
+        io.to(room).emit('roomUsers', {
+            room: room,
+            users: rooms[room].users
+        })
     })
+
     socket.on('send-chat-message', (room, message) => {
         socket.to(room).emit('chat-message', { message: message, name: rooms[room].users[socket.id] })
         chats[room].push({ name: rooms[room].users[socket.id], message: message });
 
     })
+
     socket.on('disconnect', () => {
         getUserRooms(socket).forEach(room => {
             socket.to(room).emit('user-disconnected', rooms[room].users[socket.id])
 
             delete rooms[room].users[socket.id];
+            console.log(rooms);
         })
     })
+
     socket.on('text-change', (delta, room) => {
         console.log(delta);
         socket.to(room).emit('receive-changes', delta);

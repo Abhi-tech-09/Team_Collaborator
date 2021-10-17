@@ -20,6 +20,7 @@ const toolbar_options = [
     [{ align: [] }],
     ["image", "blockquote", "code-block"],
 ];
+let userList = [];
 let quill = "";
 let nameuser = "";
 let files = {};
@@ -38,6 +39,11 @@ if (messageForm != null) {
             nameuser = prompt("Enter your name");
         }
     }
+    // userList.push(nameuser);
+    // const userlist = document.createElement('div');
+    // userlist.className = "user_name";
+    // userlist.innerHTML = `<h6>${nameuser}</h6>`;
+    // document.querySelector('.dropdown-content').append(userlist)
 
     appendMessage('You Joined...', "right");
     socket.emit('new-user', roomName, nameuser)
@@ -54,7 +60,6 @@ if (messageForm != null) {
         theme: 'snow',
         modules: { toolbar: toolbar_options }
     });
-    // document.querySelector('.ql-editor').innerText = JSON.parse(files[roomName]);
 
     quill.on('text-change', function (delta, oldDelta, source) {
         // files[roomName] = JSON.stringify(document.querySelector('.ql-editor').innerText);
@@ -84,18 +89,14 @@ socket.on('chat-message', data => {
 
 socket.on('user-connected', (nameuser, allusers) => {
     appendMessage(`${nameuser} connected...`, "left");
-    console.log(allusers)
-    for (x in allusers) {
-        const userlist = document.createElement('div');
-        userlist.className = "user_name";
 
-        userlist.innerHTML = `<h6>${allusers[x]}</h6>`;
-        document.querySelector('.dropdown-content').append(userlist);
-    }
 })
 
-
-
+socket.on("roomUsers", ({ room, users }) => {
+    console.log(room)
+    console.log(users)
+    displayUser(users);
+})
 
 socket.on('user-disconnected', nameuser => {
     localStorage.setItem('chats', JSON.stringify(chats));
@@ -158,6 +159,15 @@ function getChats(roomName) {
         }
 
     }
+}
+
+function displayUser(users) {
+    document.querySelector(".dropdown-content").innerHTML = "";
+    Object.entries(users).forEach((user) => {
+        const ele = document.createElement('h5');
+        ele.innerText = user[1];
+        document.querySelector(".dropdown-content").appendChild(ele);
+    })
 }
 
 

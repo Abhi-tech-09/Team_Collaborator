@@ -298,3 +298,21 @@ h1 {
 
 
 
+  .profile{
+      background : none;
+      border: none;
+  }
+  .profile > a {
+      text-decoration: none;
+      color: white;
+  }
+  .profile > a:hover{
+      color : red ; 
+  }
+
+  #logout{
+      background: none;
+      border : none;
+  }
+
+
