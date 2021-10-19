@@ -4,79 +4,92 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Firebase Server Auth</title>
+    <title>SignUp | Doc-Fluent</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
     <link rel="stylesheet" href="./mvp.css" />
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <main>
-        <section>
-            <form id="signup">
-                <label>User Name</label>
-                <input type="text" name="username" />
-                <label>Email</label>
-                <input type="text" name="email" />
-                <label>Password</label>
-                <input type="password" name="password" />
-                <button>Sign up</button>
-            </form>
-        </section>
+    <div class="wrapper">
+        <!-- <img src="/images/docfluent.png"> -->
+        <div class="box">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <main>
+            <section>
+                <form id="signup">
+                    <div style="text-align: center;">
+                        <h2>Sign Up</h2>
+                        <hr>
+                        <label>User Name</label>
+                        <input type="text" name="username" class="input-center" placeholder="Name" /><br>
+                        <label>Email</label>
+                        <input type="text" name="email" class="input-center" placeholder="you@gmail.com" /><br>
+                        <label>Password</label>
+                        <input type="password" name="password" class="input-center" placeholder="Password" /><br>
+                        <button style="background-color: #0c610f;">Sign up</button>
+                    </div>
 
-        <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-database.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+                </form>
+            </section>
 
-        <script>
-            const firebaseConfig = {
-                apiKey: "AIzaSyBvOJwAjPy34RM9eG7fsQOYxG8U6b838YE",
-                authDomain: "teamcollabarator.firebaseapp.com",
-                databaseURL: "https://teamcollabarator-default-rtdb.firebaseio.com",
-                projectId: "teamcollabarator",
-                storageBucket: "teamcollabarator.appspot.com",
-                messagingSenderId: "42443602275",
-                appId: "1:42443602275:web:7bcc482cb7a14210f83b56"
-            };
+            <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-database.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 
-            firebase.initializeApp(firebaseConfig);
+            <script>
+                const firebaseConfig = {
+                    apiKey: "AIzaSyBvOJwAjPy34RM9eG7fsQOYxG8U6b838YE",
+                    authDomain: "teamcollabarator.firebaseapp.com",
+                    databaseURL: "https://teamcollabarator-default-rtdb.firebaseio.com",
+                    projectId: "teamcollabarator",
+                    storageBucket: "teamcollabarator.appspot.com",
+                    messagingSenderId: "42443602275",
+                    appId: "1:42443602275:web:7bcc482cb7a14210f83b56"
+                };
 
-            firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
+                firebase.initializeApp(firebaseConfig);
 
-            document
-                .getElementById("signup")
-                .addEventListener("submit", (event) => {
-                    event.preventDefault();
-                    const username = event.target.username.value;
-                    const email = event.target.email.value;
-                    const password = event.target.password.value;
+                firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
 
-                    firebase
-                        .auth()
-                        .createUserWithEmailAndPassword(email, password)
-                        .then(({ user }) => {
+                document
+                    .getElementById("signup")
+                    .addEventListener("submit", (event) => {
+                        event.preventDefault();
+                        const username = event.target.username.value;
+                        const email = event.target.email.value;
+                        const password = event.target.password.value;
 
-                            var ref = firebase.database().ref();
-                            em = email.replaceAll(".com", "")
-                            ref.child('users/' + em).set({ name: username }).then((res) => {
-                                // alert(user.uid)
-                                // fetch("/sessionLogin", {
-                                //     method: "POST",
-                                //     headers: {
-                                //         Accept: "application/json",
-                                //         "Content-Type": "application/json",
-                                //     },
-                                //     body: JSON.stringify({ username, email }),
-                                // });
-                                window.location.assign("/logIn");
+                        firebase
+                            .auth()
+                            .createUserWithEmailAndPassword(email, password)
+                            .then(({ user }) => {
+
+                                var ref = firebase.database().ref();
+                                em = email.replaceAll(".com", "")
+                                ref.child('users/' + em).set({ name: username }).then((res) => {
+                                    window.location.assign("/logIn");
+                                })
                             })
-                        })
 
 
 
-                    return false;
-                });
-        </script>
-    </main>
+                        return false;
+                    });
+            </script>
+        </main>
+    </div>
 </body>
 
 </html>
