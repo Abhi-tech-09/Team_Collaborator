@@ -1,14 +1,12 @@
-const uniqid = require("uniqid")
 const cookieParser = require("cookie-parser");
-const csrf = require("csurf");
 const jwt = require("jsonwebtoken")
 const express = require("express");
 const admin = require("firebase-admin");
-// const express = require('express');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const keys = require("./keys.json");
+
 admin.initializeApp({
     credential: admin.credential.cert(keys),
     databaseURL: "https://teamcollabarator-default-rtdb.firebaseio.com",
@@ -27,9 +25,7 @@ app.use(express.json());
 
 let rooms = {}
 let chats = {};
-let current_user;
-let id;
-let obj = {};
+
 
 
 
@@ -42,9 +38,7 @@ app.get('/home', (req, res) => {
         if (err) {
             res.render('index', { rooms: rooms })
         } else {
-            // console.log("Succes")
             curr_auth = authData;
-            // console.log("render")
 
             res.redirect('/dashboard')
         }
@@ -77,8 +71,6 @@ app.post("/sessionLogin", (req, res) => {
         name: req.body.username,
         email: req.body.email
     }
-    console.log(user);
-    // const token;
     jwt.sign({ user }, 'secretkey', (err, token) => {
         console.log(token)
         res.cookie("jwt", token, {
@@ -88,7 +80,7 @@ app.post("/sessionLogin", (req, res) => {
         res.json({ token })
 
     })
-    console.log("Bhai kahan pe ho apap")
+
 
 });
 
@@ -109,9 +101,7 @@ app.get('/dashboard', (req, res) => {
         if (err) {
             res.redirect("/logIn")
         } else {
-            console.log("Succes")
             curr_auth = authData;
-            console.log("render")
 
             res.render("dashboard", { rooms, curr_auth: JSON.stringify(authData) });
         }
@@ -174,14 +164,17 @@ io.on('connection', socket => {
     socket.on('disconnect', () => {
         getUserRooms(socket).forEach(room => {
             socket.to(room).emit('user-disconnected', rooms[room].users[socket.id])
-
             delete rooms[room].users[socket.id];
-            console.log(rooms);
+            io.to(room).emit('roomUsers', {
+                room: room,
+                users: rooms[room].users
+            })
         })
+
+
     })
 
     socket.on('text-change', (delta, room) => {
-        console.log(delta);
         socket.to(room).emit('receive-changes', delta);
     })
 
