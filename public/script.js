@@ -6,8 +6,10 @@ const messageInput = document.getElementById('message-input');
 const roomContainer = document.getElementById('roomContainer');
 
 if (typeof user == 'object') {
-    console.log(user)
-    alert(`Hello ${user.user.name}`);
+    const ele = document.createElement('h5');
+    ele.innerHTML = `Hi ${user.user.name} !!`;
+    ele.className = "username"
+    document.querySelector(".collapse").appendChild(ele);
 }
 
 const toolbar_options = [
@@ -39,14 +41,11 @@ if (messageForm != null) {
             nameuser = prompt("Enter your name");
         }
     }
-    // userList.push(nameuser);
-    // const userlist = document.createElement('div');
-    // userlist.className = "user_name";
-    // userlist.innerHTML = `<h6>${nameuser}</h6>`;
-    // document.querySelector('.dropdown-content').append(userlist)
 
     appendMessage('You Joined...', "right");
     socket.emit('new-user', roomName, nameuser)
+    document.title = roomName
+
 
     messageForm.addEventListener('submit', e => {
         e.preventDefault();
@@ -93,8 +92,6 @@ socket.on('user-connected', (nameuser, allusers) => {
 })
 
 socket.on("roomUsers", ({ room, users }) => {
-    console.log(room)
-    console.log(users)
     displayUser(users);
 })
 
