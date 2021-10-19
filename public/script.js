@@ -159,11 +159,12 @@ function getChats(roomName) {
 }
 
 function displayUser(users) {
-    document.querySelector(".dropdown-content").innerHTML = "";
+    document.querySelector(".dropdown-menu").innerHTML = "";
     Object.entries(users).forEach((user) => {
-        const ele = document.createElement('h5');
+        const ele = document.createElement('li');
+        ele.innerHTML = `<a class="dropdown-item">${user[1]}</a>`;
         ele.innerText = user[1];
-        document.querySelector(".dropdown-content").appendChild(ele);
+        document.querySelector(".dropdown-menu").appendChild(ele);
     })
 }
 
