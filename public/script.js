@@ -5,12 +5,7 @@ const messageForm = document.getElementById('send-container');
 const messageInput = document.getElementById('message-input');
 const roomContainer = document.getElementById('roomContainer');
 
-if (typeof user == 'object' && user !== null) {
-    const ele = document.createElement('h5');
-    ele.innerHTML = `Hi ${user.user.name} !!`;
-    ele.className = "username"
-    document.querySelector(".collapse").appendChild(ele);
-}
+
 
 const toolbar_options = [
     [{ header: [1, 2, 3, 4, 5, 6, false] }],
@@ -119,8 +114,6 @@ socket.on("roomUsers", ({ room, users }) => {
 
 socket.on('user-disconnected', nameuser => {
     localStorage.setItem('chats', JSON.stringify(chats));
-    // files[roomName] = document.querySelector('.ql-editor').innerText;
-    // console.log(files[roomName])
     localStorage.setItem('files', JSON.stringify(files));   
     appendMessage(`${nameuser} disconnected...`, "right");
 })

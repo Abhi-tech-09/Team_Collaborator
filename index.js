@@ -133,7 +133,7 @@ app.get('/:room', (req, res) => {
             res.render("rooms", { roomName: req.params.room, chatObj: JSON.stringify(chats), curr_auth: null, roomslist: rooms , files : JSON.stringify(files) });
         } else {
             curr_auth = authData;
-            res.render('rooms', { roomName: req.params.room, chatObj: JSON.stringify(chats), curr_auth: JSON.stringify(authData), roomslist: rooms });
+            res.render('rooms', { roomName: req.params.room, chatObj: JSON.stringify(chats), curr_auth: JSON.stringify(authData), roomslist: rooms , files : JSON.stringify(files) });
         }
     });
 

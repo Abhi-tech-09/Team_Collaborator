@@ -124,6 +124,12 @@
 <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
 <script>
+
+const ele = document.createElement('h5');
+    ele.innerHTML = `Hi ${user.user.name} !!`;
+    ele.className = "username"
+    document.querySelector(".collapse").appendChild(ele);
+
     const firebaseConfig = {
         apiKey: "AIzaSyBvOJwAjPy34RM9eG7fsQOYxG8U6b838YE",
         authDomain: "teamcollabarator.firebaseapp.com",
