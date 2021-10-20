@@ -128,12 +128,13 @@ app.get('/:room', (req, res) => {
         return res.redirect('/home')
     }
 
+
     jwt.verify(req.cookies.jwt, 'secretkey', (err, authData) => {
         if (err) {
-            res.render("rooms", { roomName: req.params.room, chatObj: JSON.stringify(chats), curr_auth: null, roomslist: rooms , files : JSON.stringify(files) });
+            res.render("rooms", { roomName: req.params.room, chatObj: JSON.stringify(chats), curr_auth: null, roomslist: rooms, files: JSON.stringify(files) });
         } else {
             curr_auth = authData;
-            res.render('rooms', { roomName: req.params.room, chatObj: JSON.stringify(chats), curr_auth: JSON.stringify(authData), roomslist: rooms , files : JSON.stringify(files) });
+            res.render('rooms', { roomName: req.params.room, chatObj: JSON.stringify(chats), curr_auth: JSON.stringify(authData), roomslist: rooms, files: JSON.stringify(files) });
         }
     });
 
@@ -172,12 +173,12 @@ io.on('connection', socket => {
             })
             console.log(files)
         })
-
-
     })
 
-    socket.on('text-change', (delta, room,message) => {
-        files[room] = message ;
+    socket.on('text-change', (delta, room, message) => {
+        if (files[room] != null) files[room].push(delta)
+        else { files[room] = []; files[room].push(delta) }
+        console.log(delta);
         socket.to(room).emit('receive-changes', delta);
     })
 

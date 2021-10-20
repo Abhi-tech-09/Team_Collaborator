@@ -21,6 +21,8 @@ let userList = [];
 let quill = "";
 let nameuser = "";
 
+let temp = [];
+
 
 if (messageForm != null) {
     // var chats = JSON.parse(!(JSON.stringify(chatObj)));
@@ -37,10 +39,10 @@ if (messageForm != null) {
             nameuser = prompt("Enter your name");
         }
     }
-    document.querySelector(".leave").addEventListener('click' , (e)=>{
-            e.preventDefault(); 
-            window.location.assign('/')
-        })
+    document.querySelector(".leave").addEventListener('click', (e) => {
+        e.preventDefault();
+        window.location.assign('/')
+    })
     appendMessage('You Joined...', "right");
     socket.emit('new-user', roomName, nameuser)
     document.title = roomName
@@ -60,36 +62,44 @@ if (messageForm != null) {
         modules: { toolbar: toolbar_options }
     });
 
-    addquillEvent().then(()=>{
+    addquillEvent().then(() => {
         quill.on('text-change', function (delta, oldDelta, source) {
-        const message = document.querySelector('.ql-editor').innerText;
-        if (source === 'user') {
-            socket.emit("text-change", delta, roomName , message);
-        }
-        
-    });
-    });
-    
-    
+            const message = document.querySelector('.ql-editor').innerText;
+            if (source === 'user') {
+                socket.emit("text-change", delta, roomName, message);
+                // temp.push(delta);
+                // localStorage.setItem('filecontent', temp)
+            }
 
-    
+        });
+    });
 
 }
 
-async function addquillEvent(){
-    fileRoom = files.replaceAll("&#34;", '"'); 
-    fileRoom = fileRoom.replaceAll("\n" ,""); 
+async function addquillEvent() {
+    fileRoom = files.replaceAll("&#34;", '"');
+    fileRoom = fileRoom.replaceAll("\n", "\\n");
+
+    console.log(fileRoom)
     fileRoom = JSON.parse(fileRoom);
-    if(fileRoom[roomName] != null)
-        document.querySelector('.ql-editor').innerText = fileRoom[roomName];
-    console.log(fileRoom);
-    return 0 ;
+
+
+    change = [];
+    if (fileRoom[roomName] != null) {
+        for (let i = 0; i < fileRoom[roomName].length; i++) {
+            quill.updateContents(fileRoom[roomName][i]);
+            // change.push(fileRoom[roomName][i].ops);
+        }
+        // console.log(change);
+
+    }
+    //     document.querySelector('.ql-editor').innerText = fileRoom[roomName];
+    return 0;
 }
 
 
 
 socket.on('receive-changes', (delta) => {
-    // alert("Haan pahucha hai")
     quill.updateContents(delta);
     socket.off('text-change');
 
@@ -105,7 +115,7 @@ socket.on('chat-message', data => {
 
 socket.on('user-connected', (nameuser, allusers) => {
     appendMessage(`${nameuser} connected...`, "left");
-    
+
 })
 
 socket.on("roomUsers", ({ room, users }) => {
@@ -114,7 +124,7 @@ socket.on("roomUsers", ({ room, users }) => {
 
 socket.on('user-disconnected', nameuser => {
     localStorage.setItem('chats', JSON.stringify(chats));
-    localStorage.setItem('files', JSON.stringify(files));   
+    localStorage.setItem('files', JSON.stringify(files));
     appendMessage(`${nameuser} disconnected...`, "right");
 })
 
