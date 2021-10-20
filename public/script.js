@@ -5,7 +5,7 @@ const messageForm = document.getElementById('send-container');
 const messageInput = document.getElementById('message-input');
 const roomContainer = document.getElementById('roomContainer');
 
-if (typeof user == 'object') {
+if (typeof user == 'object' && user !== null) {
     const ele = document.createElement('h5');
     ele.innerHTML = `Hi ${user.user.name} !!`;
     ele.className = "username"
@@ -25,7 +25,8 @@ const toolbar_options = [
 let userList = [];
 let quill = "";
 let nameuser = "";
-let files = {};
+
+
 if (messageForm != null) {
     // var chats = JSON.parse(!(JSON.stringify(chatObj)));
     chats = chatObj.replaceAll('&#34;', '"')
@@ -41,7 +42,10 @@ if (messageForm != null) {
             nameuser = prompt("Enter your name");
         }
     }
-
+    document.querySelector(".leave").addEventListener('click' , (e)=>{
+            e.preventDefault(); 
+            window.location.assign('/')
+        })
     appendMessage('You Joined...', "right");
     socket.emit('new-user', roomName, nameuser)
     document.title = roomName
@@ -54,19 +58,37 @@ if (messageForm != null) {
         socket.emit('send-chat-message', roomName, message);
         messageInput.value = "";
     })
+
     getChats(roomName);
     quill = new Quill('#editor', {
         theme: 'snow',
         modules: { toolbar: toolbar_options }
     });
 
-    quill.on('text-change', function (delta, oldDelta, source) {
-        // files[roomName] = JSON.stringify(document.querySelector('.ql-editor').innerText);
+    addquillEvent().then(()=>{
+        quill.on('text-change', function (delta, oldDelta, source) {
+        const message = document.querySelector('.ql-editor').innerText;
         if (source === 'user') {
-            socket.emit("text-change", delta, roomName);
+            socket.emit("text-change", delta, roomName , message);
         }
+        
     });
+    });
+    
+    
 
+    
+
+}
+
+async function addquillEvent(){
+    fileRoom = files.replaceAll("&#34;", '"'); 
+    fileRoom = fileRoom.replaceAll("\n" ,""); 
+    fileRoom = JSON.parse(fileRoom);
+    if(fileRoom[roomName] != null)
+        document.querySelector('.ql-editor').innerText = fileRoom[roomName];
+    console.log(fileRoom);
+    return 0 ;
 }
 
 
@@ -88,7 +110,7 @@ socket.on('chat-message', data => {
 
 socket.on('user-connected', (nameuser, allusers) => {
     appendMessage(`${nameuser} connected...`, "left");
-
+    
 })
 
 socket.on("roomUsers", ({ room, users }) => {
@@ -97,9 +119,9 @@ socket.on("roomUsers", ({ room, users }) => {
 
 socket.on('user-disconnected', nameuser => {
     localStorage.setItem('chats', JSON.stringify(chats));
-
-    files[roomName] = document.querySelector('.ql-editor').innerText;
-    localStorage.setItem('files', JSON.stringify(files));
+    // files[roomName] = document.querySelector('.ql-editor').innerText;
+    // console.log(files[roomName])
+    localStorage.setItem('files', JSON.stringify(files));   
     appendMessage(`${nameuser} disconnected...`, "right");
 })
 

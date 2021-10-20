@@ -25,6 +25,7 @@ app.use(express.json());
 
 let rooms = {}
 let chats = {};
+let files = {};
 
 
 
@@ -129,7 +130,7 @@ app.get('/:room', (req, res) => {
 
     jwt.verify(req.cookies.jwt, 'secretkey', (err, authData) => {
         if (err) {
-            res.render("rooms", { roomName: req.params.room, chatObj: JSON.stringify(chats), curr_auth: null, roomslist: rooms });
+            res.render("rooms", { roomName: req.params.room, chatObj: JSON.stringify(chats), curr_auth: null, roomslist: rooms , files : JSON.stringify(files) });
         } else {
             curr_auth = authData;
             res.render('rooms', { roomName: req.params.room, chatObj: JSON.stringify(chats), curr_auth: JSON.stringify(authData), roomslist: rooms });
@@ -169,12 +170,14 @@ io.on('connection', socket => {
                 room: room,
                 users: rooms[room].users
             })
+            console.log(files)
         })
 
 
     })
 
-    socket.on('text-change', (delta, room) => {
+    socket.on('text-change', (delta, room,message) => {
+        files[room] = message ;
         socket.to(room).emit('receive-changes', delta);
     })
 
