@@ -6,7 +6,8 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const keys = require("./keys.json");
-const port = process.env.PORT || 3000 ;
+const port = process.env.PORT || 3000;
+server.listen(port);
 admin.initializeApp({
     credential: admin.credential.cert(keys),
     databaseURL: "https://teamcollabarator-default-rtdb.firebaseio.com",
@@ -141,7 +142,7 @@ app.get('/:room', (req, res) => {
 })
 
 
-server.listen(port );
+
 
 io.on('connection', socket => {
 
