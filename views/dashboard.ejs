@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doc-Fluent</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <!-- for css -->
+    <link rel="stylesheet" href="mvp.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- fonts for content -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kaisei+HarunoUmi:wght@500&family=Source+Sans+Pro:ital,wght@1,300&display=swap"
+        rel="styles.css">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script>
+        let user = "<%= curr_auth %>"
+        console.log(user)
+        user = user.replaceAll("&#34;", '"');
+        user = JSON.parse(user)
+    </script>
+
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <nav class="navbar navbar-expand-lg navbar-dark justify-content-between"
+            style="background-color: rgba(6, 6, 44, 0.26); color: white;">
+            <!-- <a class="navbar-brand" href="/">Navbar</a> -->
+            <img class="image" src="/images/docfluent.png" width="50" height="50" style="margin: 0;">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/index.js">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/index.js">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/index.js">Contact Us</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/index.js">Ask Help</a>
+                    </li>
+
+                </ul>
+
+
+            </div>
+        </nav>
+        <img src="/images/docfluent.png" style="margin-left: 5rem;">
+        <div class="box">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+
+    </div>
+
+    <div class="auth">
+        <button class="profile" style="color: white;"><a href="/profile">profile</a></button>
+        <button id="logout" class="profile">Log Out</button>
+
+    </div>
+
+    <div id="roomContainer">
+        <% Object.keys(rooms).forEach(room=> { %>
+            <div class="roomList">
+                <span class="badge bg-warning text-dark">
+                    <%= room %>
+                </span>
+                <a class="btn btn-sm btn-danger" href="/<%= room %>" role="button">Join</a>
+            </div>
+
+            <% }) %>
+    </div>
+
+    <br>
+
+    <div class="elements">
+        <form id="createRoom" autocomplete="off" action="/room" method="post">
+            <div class="row">
+                <div class="col">
+                    <input id="roomname" type="text" name="room" class="form-control" placeholder="Enter room name" ,
+                        required>
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Create Room</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+
+</body>
+
+
+<script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
+<script>
+
+const ele = document.createElement('h5');
+    ele.innerHTML = `Hi ${user.user.name} !!`;
+    ele.className = "username"
+    document.querySelector(".collapse").appendChild(ele);
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBvOJwAjPy34RM9eG7fsQOYxG8U6b838YE",
+        authDomain: "teamcollabarator.firebaseapp.com",
+        databaseURL: "https://teamcollabarator-default-rtdb.firebaseio.com",
+        projectId: "teamcollabarator",
+        storageBucket: "teamcollabarator.appspot.com",
+        messagingSenderId: "42443602275",
+        appId: "1:42443602275:web:7bcc482cb7a14210f83b56"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    document.getElementById("logout").addEventListener('click', (e) => {
+        e.preventDefault();
+        firebase.auth().signOut().then(() => {
+            fetch("/sessionLogout", {
+                method: "GET",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                credentials: 'include'
+            }).then((res) => {
+                window.location.assign("/logIn");
+            })
+
+        })
+    })
+
+</script>
+<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+<script src="script.js"></script>
+
+
+</html>
