@@ -89,7 +89,7 @@ app.post("/sessionLogin", (req, res) => {
 app.get("/sessionLogout", (req, res) => {
     res.clearCookie("jwt", {
         path: "/",
-        domain: "localhost"
+        domain: "team-collaborator.herokuapp.com"
     });
     res.sendStatus(200);
     console.log("User logged out")
