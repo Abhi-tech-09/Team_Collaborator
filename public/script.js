@@ -138,9 +138,12 @@ socket.on('room-created', room => {
                     ${room}
                 </span>
     <a class="btn btn-sm btn-primary" href="/${room}" role="button">Join</a>
+    <button class="btn btn-sm btn-danger deleteRoom">delete</button>
     
     `;
+
     roomContainer.append(roomElement);
+    alert("room created")
 
 
 
