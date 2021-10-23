@@ -175,6 +175,12 @@ io.on('connection', socket => {
         })
     })
 
+    socket.on('delete-room', room => {
+        delete rooms[room];
+        // console.log(rooms);
+        io.emit('room-deleted', room);
+    })
+
     socket.on('text-change', (delta, room, message) => {
         if (files[room] != null) files[room].push(delta)
         else { files[room] = []; files[room].push(delta) }

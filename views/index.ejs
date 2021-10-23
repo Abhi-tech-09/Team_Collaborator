@@ -92,7 +92,8 @@
                 <span class="badge bg-warning text-dark">
                     <%= room %>
                 </span>
-                <a class="btn btn-sm btn-danger" href="/<%= room %>" role="button">Join</a>
+                <a class="btn btn-sm btn-success" href="/<%= room %>" role="button">Join</a>
+                <button class="btn btn-sm btn-danger <%= room %> delete">Delete</button>
             </div>
 
             <% }) %>
@@ -117,8 +118,16 @@
 </body>
 <script>
     user = null;
+    let list = document.getElementsByClassName("delete");
+    for (let i = 0; i < list.length; i++) {
+        document.getElementsByClassName(`${list[i].classList[3]}`).addEventListener('click', (e) => {
+            // e.preventDefault();
+            alert(`presses ${list[i].classList[3]}`);
+        })
+    }
+
+
 </script>
-<script src="delRoom.js"></script>
 
 
 
