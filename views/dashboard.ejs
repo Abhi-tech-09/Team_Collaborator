@@ -94,7 +94,9 @@
                 <span class="badge bg-warning text-dark">
                     <%= room %>
                 </span>
-                <a class="btn btn-sm btn-danger" href="/<%= room %>" role="button">Join</a>
+                <a class="btn btn-sm btn-success" href="/<%= room %>" role="button">Join</a>
+                <button class="btn btn-sm btn-danger  delete" value="<%= room %>"
+                    onclick="deleteRoom(event)">Delete</button>
             </div>
 
             <% }) %>
@@ -157,7 +159,6 @@
 
         })
     })
-
 </script>
 <script src="https://team-collaborator.herokuapp.com/socket.io/socket.io.js"></script>
 <script defer src="script.js"></script>
