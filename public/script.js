@@ -139,17 +139,25 @@ socket.on('room-created', room => {
     <a class="btn btn-sm btn-success" href="/${room}" role="button">Join</a>
     <button class="btn btn-sm btn-danger delete" value = "${room}">Delete</button>
     `;
-
     roomContainer.append(roomElement);
-
-    roomElement.children[2].onclick = deleteRoom(event);
+    console.log("idhar hun")
+    let list = document.getElementsByClassName('roomList');
+    for (let i = 0; i < list.length; i++) {
+        console.log("socket ke andar hun");
+        if (list[i].children[2].value == room) {
+            console.log("aaya");
+            console.log(list[i].children[2])
+            list[i].children[2].addEventListener('click', deleteRoom)
+        }
+    }
 })
 
 socket.on('room-deleted', room => {
     let list = document.getElementsByClassName('roomList');
     for (let i = 0; i < list.length; i++) {
-        // console.log(list[i]);
+        console.log(list[i]);
         if (list[i].children[2].value == room) {
+            console.log("aaya");
             roomContainer.removeChild(list[i]);
         }
     }
@@ -204,7 +212,7 @@ function displayUser(users) {
 
 
 function deleteRoom(e) {
-    console.log(e.target.value)
+    console.log("Yahan pe aaya hun")
     socket.emit("delete-room", e.target.value);
 }
 
