@@ -6,10 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doc-Fluent</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/icon.png">
     <!-- for css -->
     <link rel="stylesheet" href="mvp.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="frontpage.css">
     <!-- fonts for content -->
     <link
         href="https://fonts.googleapis.com/css2?family=Kaisei+HarunoUmi:wght@500&family=Source+Sans+Pro:ital,wght@1,300&display=swap"
@@ -62,58 +62,68 @@
                 </ul>
             </div>
         </nav>
-        <img class="image" src="/images/docfluent.png">
-
-        <div class="box">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
     </div>
-
+    
     <div class="auth">
         <form class="signinform" method="get" action='/signUp'><button type="submit" class="signin"> Sign UP </button>
         </form>
         <form class="loginform" method="get" action="/logIn"><button type="submit" class="login"> Log IN </button>
         </form>
     </div>
-
-    <div id="roomContainer">
-        <% Object.keys(rooms).forEach(room=> { %>
-            <div class="roomList">
-                <span class="badge bg-warning text-dark">
-                    <%= room %>
-                </span>
-                <a class="btn btn-sm btn-success" href="/<%= room %>" role="button">Join</a>
-                <button class="btn btn-sm btn-danger  delete" value="<%= room %>"
-                    onclick="deleteRoom(event)">Delete</button>
-            </div>
-
-            <% }) %>
+    
+    <img class="animated" src="/images/docfluent.png">
+    <div class="box">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
     </div>
 
-    <br>
 
-    <div class="elements">
-        <form autocomplete="off" action="/room" method="post">
-            <div class="row">
-                <div class="col">
-                    <input type="text" name="room" class="form-control" placeholder="Enter room name" , required>
-                </div>
-                <div class="col">
-                    <button class="btn btn-primary" id="roomee" type="submit">Create Room</button>
-                </div>
+    <div class="combined">
 
+        <div class="elements">
+            <form id="createRoom" autocomplete="off" action="/room" method="post">
+                <div class="row">
+                    <div class="col">
+                        <input id="roomname" type="text" name="room" class="form-control" placeholder="Enter room name"
+                            , required>
+                    </div>
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary create">Create Room</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+        <div class="room-wrapper">
+            <h4 class="room-created">Rooms Created</h4>
+            <hr>
+
+            <div  id="roomContainer">
+                <% Object.keys(rooms).forEach(room=> { %>
+                    <div class="roomList">
+                        <span class="badge bg-warning text-dark"><h6>
+                            <%= room %></h6>
+                        </span>
+                        <a class="btn btn-sm btn-success" href="/<%= room %>" role="button">Join</a>
+                        <button class="btn btn-sm btn-danger  delete" value="<%= room %>"
+                            onclick="deleteRoom(event)">Delete</button>
+                    </div>
+
+                    <% }) %>
             </div>
-        </form>
+        </div>
+
     </div>
+
 
 </body>
 <script>

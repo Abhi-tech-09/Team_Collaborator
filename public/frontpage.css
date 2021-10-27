@@ -1,0 +1,290 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+body{
+    background: linear-gradient(90deg, rgba(33, 34, 73,1) 0%, rgba(9,9,121,1), rgb(1, 184, 221) 100%);
+    height: 100vh;
+    width:100vw;
+}
+
+.wrapper {
+    position: absolute;
+    width: 100%;
+    height: 8%;
+    overflow: hidden;
+    
+}
+.image{
+    margin-left: 8rem;
+    margin-top: 0px;
+}
+
+
+
+.box div{
+    position:absolute;
+    width: 60px;
+    height: 60px;
+    background-color: transparent;
+    border: 6px solid rgba(255,255,255,0.8);
+}
+
+.box div:nth-child(1) {
+    top: 12%;
+    left: 42%;
+    animation: animate 10s linear infinite;
+}
+
+.box div:nth-child(2) {
+    top: 70%;
+    left: 50%;
+    animation: animate 7s linear infinite;
+}
+
+.box div:nth-child(3) {
+    top: 17%;
+    left: 6%;
+    animation: animate 9s linear infinite;
+}
+
+.box div:nth-child(4) {
+    top: 20%;
+    left: 60%;
+    animation: animate 10s linear infinite;
+}
+
+.box div:nth-child(5) {
+    top: 67%;
+    left: 10%;
+    animation: animate 6s linear infinite;
+}
+
+.box div:nth-child(6) {
+    top: 80%;
+    left: 70%;
+    animation: animate 12s linear infinite;
+}
+
+.box div:nth-child(7) {
+    top: 60%;
+    left: 80%;
+    animation: animate 15s linear infinite;
+}
+
+.box div:nth-child(8) {
+    top: 32%;
+    left: 25%;
+    animation: animate 16s linear infinite;
+}
+
+.box div:nth-child(9) {
+    top: 90%;
+    left: 25%;
+    animation: animate 9s linear infinite;
+}
+
+.box div:nth-child(10) {
+    top: 20%;
+    left: 80%;
+    animation: animate 5s linear infinite;
+} 
+
+@keyframes animate {
+    /* initial stage */
+    0% {
+        transform: scale(0) translateY(0) rotate(0);
+        opacity: 1;
+    }
+    /* to rotate clockwise and increase size */
+    100% {
+        transform: scale(1.3) translateY(-90px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+
+.auth{
+    position: absolute;
+    top: 5rem;
+    right: 5rem;
+    display: flex;
+}
+
+.profile {
+    color: white;
+    background-color: #097c2f;
+    border-radius: 10px;
+    margin: 10px;
+}
+.profile > a {
+    color : white ; 
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* .room-wrapper{
+    position: absolute;
+}*/
+.room-wrapper{
+    color : white;
+    min-width : 10% ; 
+    min-height: 10% ;
+    border : 2px solid black ;
+    background: transparent;
+    /* overflow-y: scroll; */
+    overflow: hidden;
+    border-radius: 0% 0% 0% 0% / 0% 0% 0% 0%;
+    box-shadow: 20px 20px rgba(0,0,0,.15);
+    transition: all .4s ease;
+}
+
+.room-wrapper:hover{
+    border-radius: 5% 5% 50% 50% / 25% 25% 5% 5% ;
+    box-shadow: 10px 10px rgba(0,0,0,.25);
+}
+
+.elements{
+    height : fit-content ; 
+    
+}
+.elements:hover > form {
+    transform: scale3d(10px,10px);
+    background-color: black;
+    background: linear-gradient(-45deg, #52b0ee, #9f96d1, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 5s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+.username{
+    width: 60%;
+    text-align: end;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.combined{
+    display: grid;
+    grid-template-rows: 1fr 5fr ;
+    grid-gap:5px;
+    height: 60%;
+    width: 30%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(46%, -30%);
+}
+.room-created {
+    width : 100%; 
+    text-align: center;
+}
+
+#roomContainer{
+    display: grid ;
+    grid-template-rows: 1fr 1fr 1fr;
+    overflow-y: scroll;
+    height : 75%;
+}
+.roomList{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 5px;
+    width : 95%;
+    /* justify-items: center; */
+    margin: auto auto 5px auto;
+}
+
+.nav-link ,  #logout , .create , .badge , .btn , .room-created{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+}
+
+.badge{
+    font-weight: bold;
+}
+
+
+.signinform{
+    padding-left: 85px;
+    background: none;
+    font-size: 18px;
+    font-family: 'Open Sans', sans-serif;;
+}
+
+.loginform{
+    padding-left: 85px;
+    background: none;
+    font-size: 18px;
+    border-radius: 10px;
+    font-family: 'Open Sans', sans-serif;;
+}
+
+
+
+.signin{
+    outline: none;
+    display: block;
+    border: 0;
+    font-size: 16px;
+    line-height: 1;
+    padding: 16px 30px;
+    border-radius: 30px;
+    background-color: #ec2c7f;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s linear;
+    font-family: 'Open Sans', sans-serif;;
+}
+.signin:hover,
+.signin:focus{
+    background-color: #860d6c;
+}
+.signin:active{
+    background-color: #92077b;
+}
+.login{
+    outline: none;
+    display: block;
+    border: 0;
+    font-size: 16px;
+    line-height: 1;
+    padding: 16px 30px;
+    border-radius: 30px;
+    background-color: #e58d18;
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s linear;
+    font-family: 'Open Sans', sans-serif;
+}
+.login:hover,
+.login:focus{
+    background-color: #945809;
+}
+.login:active{
+    background-color: #854e07;
+}
+
+
+.animated{
+    animation-name: floating;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes floating {
+    0% { transform: translate(0,  0px); }
+
+    50%  { transform: translate(0, 40px); }
+
+    100%   { transform: translate(0, -0px); }   
+}
