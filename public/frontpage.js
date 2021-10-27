@@ -1,4 +1,4 @@
-const socket = io('http://localhost:3000');
+const socket = io('https://team-collaborator.herokuapp.com/');
 
 const roomContainer = document.getElementById('roomContainer');
 
