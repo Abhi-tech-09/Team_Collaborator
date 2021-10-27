@@ -109,11 +109,13 @@
             <h4 class="room-created">Rooms Created</h4>
             <hr>
 
-            <div  id="roomContainer">
+            <div id="roomContainer">
                 <% Object.keys(rooms).forEach(room=> { %>
                     <div class="roomList">
-                        <span class="badge bg-warning text-dark"><h6>
-                            <%= room %></h6>
+                        <span class="badge bg-warning text-dark">
+                            <h6>
+                                <%= room %>
+                            </h6>
                         </span>
                         <a class="btn btn-sm btn-success" href="/<%= room %>" role="button">Join</a>
                         <button class="btn btn-sm btn-danger  delete" value="<%= room %>"
@@ -145,7 +147,15 @@
     ele.innerHTML = `Hi ${user.user.name} !!`;
     ele.className = "username"
     document.querySelector(".collapse").appendChild(ele);
-
+    const firebaseConfig = {
+        apiKey: "AIzaSyBvOJwAjPy34RM9eG7fsQOYxG8U6b838YE",
+        authDomain: "teamcollabarator.firebaseapp.com",
+        databaseURL: "https://teamcollabarator-default-rtdb.firebaseio.com",
+        projectId: "teamcollabarator",
+        storageBucket: "teamcollabarator.appspot.com",
+        messagingSenderId: "42443602275",
+        appId: "1:42443602275:web:7bcc482cb7a14210f83b56"
+    };
     firebase.initializeApp(firebaseConfig);
     document.getElementById("logout").addEventListener('click', (e) => {
         e.preventDefault();
