@@ -116,10 +116,11 @@ app.post('/room', (req, res) => {
         console.log("Room already exists already");
         return res.redirect('/');
     }
-    rooms[req.body.room] = { users: {} };
-    chats[req.body.room] = [];
-    res.redirect(req.body.room);
-    io.emit('room-created', req.body.room);
+    roomStr = req.body.room.trim();
+    rooms[roomStr] = { users: {} };
+    chats[roomStr] = [];
+    res.redirect(roomStr);
+    io.emit('room-created',roomStr);
 
 })
 

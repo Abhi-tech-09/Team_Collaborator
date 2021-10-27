@@ -3,8 +3,6 @@ const socket = io('https://team-collaborator.herokuapp.com/');
 const messageContainer = document.getElementById('message-container');
 const messageForm = document.getElementById('send-container');
 const messageInput = document.getElementById('message-input');
-const roomContainer = document.getElementById('roomContainer');
-
 
 
 const toolbar_options = [
@@ -24,8 +22,6 @@ let nameuser = "";
 let temp = [];
 
 
-if (messageForm != null) {
-    // var chats = JSON.parse(!(JSON.stringify(chatObj)));
     chats = chatObj.replaceAll('&#34;', '"')
     console.log(JSON.parse(chats));
 
@@ -56,7 +52,10 @@ if (messageForm != null) {
         messageInput.value = "";
     })
 
+
     getChats(roomName);
+
+
     quill = new Quill('#editor', {
         theme: 'snow',
         modules: { toolbar: toolbar_options }
@@ -74,7 +73,9 @@ if (messageForm != null) {
         });
     });
 
-}
+
+
+
 
 async function addquillEvent() {
     fileRoom = files.replaceAll("&#34;", '"');
@@ -96,7 +97,6 @@ async function addquillEvent() {
     //     document.querySelector('.ql-editor').innerText = fileRoom[roomName];
     return 0;
 }
-
 
 
 socket.on('receive-changes', (delta) => {
@@ -128,40 +128,7 @@ socket.on('user-disconnected', nameuser => {
     appendMessage(`${nameuser} disconnected...`, "right");
 })
 
-socket.on('room-created', room => {
 
-    const roomElement = document.createElement('div');
-    roomElement.className = "roomList";
-    roomElement.innerHTML = `
-    <span class="badge bg-warning text-dark">
-                    ${room}
-                </span>
-    <a class="btn btn-sm btn-success" href="/${room}" role="button">Join</a>
-    <button class="btn btn-sm btn-danger delete" value = "${room}">Delete</button>
-    `;
-    roomContainer.append(roomElement);
-    console.log("idhar hun")
-    let list = document.getElementsByClassName('roomList');
-    for (let i = 0; i < list.length; i++) {
-        console.log("socket ke andar hun");
-        if (list[i].children[2].value == room) {
-            console.log("aaya");
-            console.log(list[i].children[2])
-            list[i].children[2].addEventListener('click', deleteRoom)
-        }
-    }
-})
-
-socket.on('room-deleted', room => {
-    let list = document.getElementsByClassName('roomList');
-    for (let i = 0; i < list.length; i++) {
-        console.log(list[i]);
-        if (list[i].children[2].value == room) {
-            console.log("aaya");
-            roomContainer.removeChild(list[i]);
-        }
-    }
-})
 
 
 function appendMessage(message, position) {
@@ -211,10 +178,7 @@ function displayUser(users) {
 }
 
 
-function deleteRoom(e) {
-    console.log("Yahan pe aaya hun")
-    socket.emit("delete-room", e.target.value);
-}
+
 
 
 

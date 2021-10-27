@@ -1,1 +1,3 @@
 node_modules
+keys.json
+public/firebase_config.js

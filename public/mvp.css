@@ -138,7 +138,6 @@ nav {
     display: flex;
     font-weight: bold;
     justify-content: space-between;
-    margin-bottom: 7rem;
 }
 
 nav ul {
@@ -354,7 +353,7 @@ form {
     display: block;
     max-width: var(--width-card-wide);
     min-width: var(--width-card);
-    padding: 1.5rem;
+    padding : 1rem ; 
     text-align: var(--justify-normal);
 }
 
