@@ -22,56 +22,76 @@ let nameuser = "";
 let temp = [];
 
 
-    chats = chatObj.replaceAll('&#34;', '"')
-    console.log(JSON.parse(chats));
+chats = chatObj.replaceAll('&#34;', '"')
+console.log(JSON.parse(chats));
 
-    if (user !== null && typeof user == 'object') {
+if (user !== null && typeof user == 'object') {
 
-        nameuser = user.user.name;
-        console.log(nameuser)
+    nameuser = user.user.name;
+    console.log(nameuser)
+}
+else {
+    while (nameuser === "") {
+        nameuser = prompt("Enter your name");
     }
-    else {
-        while (nameuser === "") {
-            nameuser = prompt("Enter your name");
+}
+document.querySelector(".leave").addEventListener('click', (e) => {
+    e.preventDefault();
+    window.location.assign('/')
+})
+appendMessage('You Joined...', "right");
+socket.emit('new-user', roomName, nameuser)
+document.title = roomName
+
+
+messageForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const message = messageInput.value;
+    appendformatMessage({ name: "You", message: message }, "right");
+    socket.emit('send-chat-message', roomName, message);
+    messageInput.value = "";
+})
+
+document.querySelector('.print').addEventListener('click', e => {
+    e.preventDefault();
+    if (user == '') {
+        alert("Please login to print the document.")
+        return;
+    }
+    document.querySelector(".chat-container").style.display = "none";
+    document.querySelector(".editor-container").style.display = "none";
+    document.querySelector('.print').style.display = "none";
+    const printDiv = document.createElement('div');
+    printDiv.innerHTML = document.querySelector(".ql-editor").innerHTML
+    document.body.append(printDiv);
+    window.print();
+    document.body.removeChild(printDiv);
+    document.querySelector(".chat-container").style.display = "grid";
+    document.querySelector(".editor-container").style.display = "block";
+    document.querySelector('.print').style.display = "block";
+
+})
+
+
+getChats(roomName);
+
+
+quill = new Quill('#editor', {
+    theme: 'snow',
+    modules: { toolbar: toolbar_options }
+});
+
+addquillEvent().then(() => {
+    quill.on('text-change', function (delta, oldDelta, source) {
+        const message = document.querySelector('.ql-editor').innerText;
+        if (source === 'user') {
+            socket.emit("text-change", delta, roomName, message);
+            // temp.push(delta);
+            // localStorage.setItem('filecontent', temp)
         }
-    }
-    document.querySelector(".leave").addEventListener('click', (e) => {
-        e.preventDefault();
-        window.location.assign('/')
-    })
-    appendMessage('You Joined...', "right");
-    socket.emit('new-user', roomName, nameuser)
-    document.title = roomName
 
-
-    messageForm.addEventListener('submit', e => {
-        e.preventDefault();
-        const message = messageInput.value;
-        appendformatMessage({ name: "You", message: message }, "right");
-        socket.emit('send-chat-message', roomName, message);
-        messageInput.value = "";
-    })
-
-
-    getChats(roomName);
-
-
-    quill = new Quill('#editor', {
-        theme: 'snow',
-        modules: { toolbar: toolbar_options }
     });
-
-    addquillEvent().then(() => {
-        quill.on('text-change', function (delta, oldDelta, source) {
-            const message = document.querySelector('.ql-editor').innerText;
-            if (source === 'user') {
-                socket.emit("text-change", delta, roomName, message);
-                // temp.push(delta);
-                // localStorage.setItem('filecontent', temp)
-            }
-
-        });
-    });
+});
 
 
 
