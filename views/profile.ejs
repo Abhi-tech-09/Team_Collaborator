@@ -16,6 +16,7 @@
 <body>
     <main>
         <h1>Profile page</h1>
+        <img class="userImage" src="images/userImage.png" alt="User-Image">
         <p>Hi <span class="user">User</span> , this page is private and only visible to you</p>
         <p>Email : <span class="email">User</span> </p>
         <button id="logout">Logout</button>
@@ -25,7 +26,7 @@
 </script>
 <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
 <script src="firebase_config.js"></script>
-<script type = "module">
+<script type="module">
     document.querySelector(".user").innerHTML = `${user.user.name}`;
     document.querySelector(".email").innerHTML = `${user.user.email}`;
     firebase.initializeApp(firebaseConfig);
@@ -49,6 +50,12 @@
 
         })
     })
+</script>
+<script>
+    const userImage = document.querySelector('.userImage');
+    if (user.user.userImage != null) {
+        userImage.src = user.user.userImage;
+    }
 </script>
 
 </html>

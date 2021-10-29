@@ -11,10 +11,7 @@
     <link rel="stylesheet" href="mvp.css">
     <link rel="stylesheet" href="frontpage.css">
     <!-- fonts for content -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Kaisei+HarunoUmi:wght@500&family=Source+Sans+Pro:ital,wght@1,300&display=swap"
-        rel="styles.css">
-    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -109,11 +106,13 @@
             <h4 class="room-created">Rooms Created</h4>
             <hr>
 
-            <div  id="roomContainer">
+            <div id="roomContainer">
                 <% Object.keys(rooms).forEach(room=> { %>
                     <div class="roomList">
-                        <span class="badge bg-warning text-dark"><h6>
-                            <%= room %></h6>
+                        <span class="badge bg-warning text-dark">
+                            <h6>
+                                <%= room %>
+                            </h6>
                         </span>
                         <a class="btn btn-sm btn-success" href="/<%= room %>" role="button">Join</a>
                         <button class="btn btn-sm btn-danger  delete" value="<%= room %>"
@@ -164,8 +163,6 @@
         })
     })
 </script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://meet.jit.si/libs/lib-jitsi-meet.min.js"></script>
 <script src="http://localhost:3000/socket.io/socket.io.js"></script>
 <script src="frontpage.js"></script>
 
