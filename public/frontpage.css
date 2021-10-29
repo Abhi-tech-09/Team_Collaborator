@@ -288,3 +288,8 @@ body{
 
     100%   { transform: translate(0, -0px); }   
 }
+
+.google{
+    position: relative;
+    left: 637px;
+}
