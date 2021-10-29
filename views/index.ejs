@@ -134,9 +134,18 @@
 
 </body>
 <script src="http://localhost:3000/socket.io/socket.io.js"></script>
-<script src="firebase_config.js"></script>
+<!-- <script src="firebase_config.js"></script> -->
 <script>
     let userd;
+    const firebaseConfig = {
+    apiKey: "AIzaSyBvOJwAjPy34RM9eG7fsQOYxG8U6b838YE",
+    authDomain: "teamcollabarator.firebaseapp.com",
+    databaseURL: "https://teamcollabarator-default-rtdb.firebaseio.com",
+    projectId: "teamcollabarator",
+    storageBucket: "teamcollabarator.appspot.com",
+    messagingSenderId: "42443602275",
+    appId: "1:42443602275:web:7bcc482cb7a14210f83b56"
+};
     document.querySelector('.google').addEventListener('click', e => {
         e.preventDefault();
         firebase.initializeApp(firebaseConfig);
