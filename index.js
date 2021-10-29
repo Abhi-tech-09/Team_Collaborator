@@ -71,7 +71,8 @@ app.post("/sessionLogin", (req, res) => {
 
     const user = {
         name: req.body.username,
-        email: req.body.email
+        email: req.body.email, 
+        userImage : req.body.userImage
     }
     jwt.sign({ user }, 'secretkey', (err, token) => {
         console.log(token)

@@ -95,7 +95,7 @@
                                         Accept: "application/json",
                                         "Content-Type": "application/json"
                                     },
-                                    body: JSON.stringify({ username: username, email: login }),
+                                    body: JSON.stringify({ username: username, email: login , userImage : null  }),
                                 }).then(response => {
                                     response.json().then(data => {
                                         window.location.assign('/dashboard')

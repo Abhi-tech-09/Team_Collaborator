@@ -11,16 +11,7 @@
     <link rel="stylesheet" href="mvp.css">
     <link rel="stylesheet" href="frontpage.css">
     <!-- fonts for content -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Kaisei+HarunoUmi:wght@500&family=Source+Sans+Pro:ital,wght@1,300&display=swap"
-        rel="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Open+Sans:wght@300&display=swap"
-        rel="stylesheet">
-    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script defer src="https://team-collaborator.herokuapp.com/socket.io/socket.io.js"></script>
@@ -29,7 +20,10 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
 
 </head>
 
@@ -59,19 +53,29 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/index.js">Ask Help</a>
                     </li>
+                    <li class="nav-item">
+                        <button class="btn btn-light google">
+                            <a >
+                                <img width="15px" style="margin-bottom:3px; margin-right:5px" alt="Google login"
+                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                                Sign in with Google
+                            </a>
+                        </button>   
+                    </li>
 
                 </ul>
             </div>
         </nav>
     </div>
-    
+
     <div class="auth">
         <form class="signinform" method="get" action='/signUp'><button type="submit" class="signin"> Sign UP </button>
         </form>
         <form class="loginform" method="get" action="/logIn"><button type="submit" class="login"> Log IN </button>
         </form>
+        
     </div>
-    
+
     <img class="animated" src="/images/docfluent.png">
     <div class="box">
         <div></div>
@@ -108,11 +112,13 @@
             <h4 class="room-created">Rooms Created</h4>
             <hr>
 
-            <div  id="roomContainer">
+            <div id="roomContainer">
                 <% Object.keys(rooms).forEach(room=> { %>
                     <div class="roomList">
-                        <span class="badge bg-warning text-dark"><h6>
-                            <%= room %></h6>
+                        <span class="badge bg-warning text-dark">
+                            <h6>
+                                <%= room %>
+                            </h6>
                         </span>
                         <a class="btn btn-sm btn-success" href="/<%= room %>" role="button">Join</a>
                         <button class="btn btn-sm btn-danger  delete" value="<%= room %>"
@@ -127,8 +133,51 @@
 
 
 </body>
+<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+<script src="firebase_config.js"></script>
 <script>
-    user = null;
+    let userd;
+    document.querySelector('.google').addEventListener('click', e => {
+        e.preventDefault();
+        firebase.initializeApp(firebaseConfig);
+        var provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth()
+            .signInWithPopup(provider)
+            .then((result) => {
+                // /** @type {firebase.auth.OAuthCredential} */
+                var credential = result.credential;
+
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                var token = credential.accessToken;
+                // The signed-in user info.
+                var user = result.user;
+                userd = user;
+                fetch("/sessionLogin", {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ username: userd.displayName, email: userd.email,userImage : userd.photoURL })
+                }).then(response => {
+                    window.location.assign('/dashboard')
+                }).catch(err => {
+                    console.log(err);
+                })
+
+                // ...
+            }).catch((error) => {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // The email of the user's account used.
+                var email = error.email;
+                // The firebase.auth.AuthCredential type that was used.
+                var credential = error.credential;
+                // ...
+            });
+
+    })
 </script>
 <script src="https://team-collaborator.herokuapp.com/socket.io/socket.io.js"></script>
 <script  src="frontpage.js"></script>

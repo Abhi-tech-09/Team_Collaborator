@@ -7,9 +7,11 @@ body{
     display: grid;
     grid-template-columns: 1fr 1fr;
     width : fit-content;
+    
 }
 
 .editor-container{
+    z-index: 5;
     width:60vw ; 
     height : 100vh ; 
     background-color: #F3F3F3;
@@ -24,11 +26,16 @@ body{
 }
 
 .ql-toolbar.ql-snow{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     height: 6%;
     text-align: center !important ; 
     position: sticky !important ; 
     box-shadow: 0 0 5px rgb(0 0 0 / 50%);
     z-index : 1 ; 
+}
+.ql-formats{
+    display: inline-flex !important ;
 }
 
 .chat-container{
@@ -38,12 +45,14 @@ body{
     height: 100vh;
     display : grid ; 
     grid-template-rows: 1fr 10fr 1fr;
+    z-index: 5;
 }
 
 #message-container{
     height: 100%;
     background: whitesmoke;
     overflow-y: scroll;
+    z-index: 5;
 }
 
 .header{
@@ -407,4 +416,19 @@ h1 {
     align-self: center;
     width: fit-content;
     margin: auto;
+}
+
+.print{
+    
+    width: 50px;
+    height: 45px;
+    border-radius: 50% !important;
+    position: absolute;
+    top: 90%;
+    left: 54%;
+    z-index: 10;
+}
+.print-image{
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
 }

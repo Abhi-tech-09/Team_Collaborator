@@ -16,6 +16,7 @@
 <body>
     <main>
         <h1>Profile page</h1>
+        <img class="userImage" src="images/userImage.png" alt="User-Image">
         <p>Hi <span class="user">User</span> , this page is private and only visible to you</p>
         <p>Email : <span class="email">User</span> </p>
         <button id="logout">Logout</button>
@@ -58,6 +59,12 @@
 
         })
     })
+</script>
+<script>
+    const userImage = document.querySelector('.userImage');
+    if (user.user.userImage != null) {
+        userImage.src = user.user.userImage;
+    }
 </script>
 
 </html>
