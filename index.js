@@ -191,9 +191,7 @@ io.on('connection', socket => {
         socket.to(room).emit('receive-changes', delta);
     })
 
-    socket.on('video-on', (roomName, stream) => {
-        socket.to(roomName).emit('add-video', stream);
-    })
+
 
 })
 
