@@ -27,6 +27,7 @@ body{
     background: linear-gradient(90deg, rgba(33, 34, 73,1) 0%, rgba(9,9,121,1), rgb(1, 184, 221) 100%);
     height: 100vh;
     width:100vw;
+    overflow: hidden;
 }
 
 .image{
@@ -167,6 +168,7 @@ body{
     border-radius: 5% 5% 50% 50% / 25% 25% 5% 5% ;
     box-shadow: 10px 10px rgba(0,0,0,.25);
 }
+
 
 .elements{
     height : fit-content ; 
@@ -430,4 +432,26 @@ form {
     .login{
         padding: 5px !important;
     }
+}
+
+
+.calendar{
+    margin-top:3px;
+}
+
+#calendar-container{
+    display: none;
+    overflow: hidden;
+}
+
+.cal{
+    position: absolute;
+    width:100vw ; 
+    height : 91.7vh; 
+    background-color: rgb(0 0 0 / 89%);
+    color : white ; 
+    z-index: 10;
+    text-align: center;
+    padding-top: 2vh;
+
 }
