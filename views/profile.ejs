@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile page</title>
     <link rel="stylesheet" href="./mvp.css" />
-    <link rel="icon" type="image/png" sizes="32x32" href="images/profile.png">
     <script defer>
         let user = "<%= curr_auth %>"
         user = user.replaceAll("&#34;", '"');
@@ -15,7 +14,6 @@
 </head>
 
 <body>
-    <a href="/dashboard" style="position: absolute;"><img src="images/back.png"></a>
     <main>
         <h1>Profile page</h1>
         <img class="userImage" src="images/userImage.png" alt="User-Image">

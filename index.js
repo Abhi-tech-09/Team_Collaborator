@@ -6,8 +6,11 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const keys = require("./keys.json");
+<<<<<<< HEAD
 const port = process.env.PORT || 3000;
 server.listen(port);
+=======
+>>>>>>> devEnv
 const { Stream } = require("stream");
 
 admin.initializeApp({
@@ -192,9 +195,13 @@ io.on('connection', socket => {
         socket.to(room).emit('receive-changes', delta);
     })
 
+<<<<<<< HEAD
     socket.on('video-on', (roomName, stream) => {
         socket.to(roomName).emit('add-video', stream);
     })
+=======
+
+>>>>>>> devEnv
 
 })
 
