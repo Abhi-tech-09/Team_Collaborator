@@ -42,4 +42,47 @@ function deleteRoom(e) {
     socket.emit("delete-room", e.target.value);
 }
 
+if(document.querySelector('.calendar') != null){
+    const calendarbtn = document.querySelector('.calendar'); 
+    const calContainer = document.querySelector('#calendar-container')
+    let click = 0 ; 
+    calendarbtn.addEventListener('click' , e =>{
+        e.preventDefault() ; 
+        let cal = new Calendar({
+            id: "#calendar-container",
+            calendarSize: "large",
+            theme : "glass",
+            primaryColor : '#1a237e',
+            headerBackgroundColor : "#fd7e14",
+            weekdaysColor : "#0d6efd",
+            eventsData : [
+                {
+                    start: '2021-10-30T09:24:48',
+                    end: '2021-10-31T09:25:48',
+                    name: 'Blockchain 101'
+                }
+               
+            ]
+          });
+
+          if(click == 0){
+            calContainer.style.display = "block" ; 
+            calContainer.classList.add("cal");
+            click = 1 ; 
+            calendarbtn.classList.remove("btn-info");
+            calendarbtn.classList.add("btn-danger");
+            calendarbtn.innerHTML = "Close" ; 
+        }
+        else{
+            click = 0 ; 
+            calContainer.classList.remove("cal"); 
+            calContainer.style.display = "none"; 
+            calendarbtn.classList.remove("btn-danger");
+            calendarbtn.classList.add("btn-info");
+            calendarbtn.innerHTML = "Go to calendar" ;
+
+        }
+        
+    })
+}
 
