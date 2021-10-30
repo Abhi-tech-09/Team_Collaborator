@@ -6,6 +6,7 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const keys = require("./keys.json");
+const { Stream } = require("stream");
 
 admin.initializeApp({
     credential: admin.credential.cert(keys),
@@ -70,8 +71,8 @@ app.post("/sessionLogin", (req, res) => {
 
     const user = {
         name: req.body.username,
-        email: req.body.email, 
-        userImage : req.body.userImage
+        email: req.body.email,
+        userImage: req.body.userImage
     }
     jwt.sign({ user }, 'secretkey', (err, token) => {
         console.log(token)
@@ -121,7 +122,7 @@ app.post('/room', (req, res) => {
     rooms[roomStr] = { users: {} };
     chats[roomStr] = [];
     res.redirect(roomStr);
-    io.emit('room-created',roomStr);
+    io.emit('room-created', roomStr);
 
 })
 
@@ -188,6 +189,10 @@ io.on('connection', socket => {
         else { files[room] = []; files[room].push(delta) }
         console.log(delta);
         socket.to(room).emit('receive-changes', delta);
+    })
+
+    socket.on('video-on', (roomName, stream) => {
+        socket.to(roomName).emit('add-video', stream);
     })
 
 })
