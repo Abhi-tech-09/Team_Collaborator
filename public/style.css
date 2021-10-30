@@ -26,8 +26,8 @@ body{
 }
 
 .ql-toolbar.ql-snow{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    /* display: grid; */
+    /* grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; */
     height: 6%;
     text-align: center !important ; 
     position: sticky !important ; 
@@ -70,8 +70,10 @@ body{
     height: 80%;
     display: grid;
     grid-template-columns: 6fr 1fr;
-    grid-column-gap: 6px;
+    grid-column-gap: 2px;
     border-top: 2px solid black;
+    padding-top: 4px; 
+    padding-right: 5px;
 }
 
 #message-input{
@@ -79,18 +81,13 @@ body{
     padding: 0.1px;
     line-height: 1.8rem;
     overflow-y: scroll;
-    margin: 9px 0px 2px 10px;
+    margin: auto;
     border-radius: 1rem;
     text-align: center;
     border: 1px solid black;
 }
 
-#send-button{
-    background-image: url(/images/send.svg);
-    background-repeat: no-repeat;
-    background-color: whitesmoke;
-    border: 1px;
-}
+
 
 .right{
     display: grid;
@@ -327,6 +324,10 @@ h1 {
     display: inline-block;
     
   }
+
+  .dropdown-toggle{
+      margin:2px;
+  }
   
   .dropdown-content {
     display: none;
@@ -395,9 +396,8 @@ h1 {
 }
 
 .send-btn{
-    border-radius: 10px;
-    width: 70%;
-    height: 80%;
+
+    padding : 0px 4px ; 
     align-self: center;
 }
 
@@ -415,7 +415,7 @@ h1 {
 .leave{
     align-self: center;
     width: fit-content;
-    margin: auto;
+    margin: 2px;
 }
 
 .print{
@@ -425,10 +425,68 @@ h1 {
     border-radius: 50% !important;
     position: absolute;
     top: 90%;
-    left: 54%;
+    right:42%;
     z-index: 10;
 }
 .print-image{
     width: -webkit-fill-available;
     height: -webkit-fill-available;
 }
+
+@media only screen and (max-width:1175px){
+    
+    body{
+        display: block !important;
+    }
+    .god{
+        height : 100vh ; 
+        width : 100vw ; 
+        overflow: hidden;
+    }
+    .editor-container{
+        height : 92vh ; 
+        width : 100vw ; 
+    }
+    #editor{
+        height:88%;
+    }
+    .chat-container{
+        height : 90vh;
+        width : 80vw ; 
+        position : absolute ; 
+        top:50%; 
+        left : 50%; 
+        transform : translate(-50%,-46%);
+    }
+
+    #message-input{
+        height : 2rem;
+    }
+
+    .print{
+        top:88vh; 
+        right:5vw;
+    }
+    .ql-toolbar.ql-snow{
+        height : fit-content ; 
+    }
+}  
+@media only screen and (max-width:700px){
+    #editor{
+        height:84%
+    }
+} 
+@media only screen and (max-width:400px){
+    #editor{
+        height:79%
+    }
+    .print{
+        height:30px; 
+        width : 35px;
+        top:90vh;
+        right:8vw;
+    }
+    .header{
+        grid-gap : 0.5rem ;
+    }
+} 

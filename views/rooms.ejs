@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doc-Fluent</title>
     <!-- <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"> -->
+    <link rel="icon" type="image/png" sizes="32x32" href="images/room.png">
     <link rel="stylesheet" type="text/css" href="style.css">
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -38,13 +39,13 @@
     <button class='btn btn-sm btn-danger print'><img class='print-image' src="images/print.png"></button>
 
     <div class="editor-container">
-        
+
         <div id="editor">
         </div>
 
     </div>
 
-    
+
 
 
     <!-- <hr class="line"> -->
@@ -70,10 +71,65 @@
         <form autocomplete="off" id="send-container">
 
             <input type="text" id="message-input" placeholder="Write Message...">
-            <button class="btn btn-sm btn-success send-btn"><i class="far fa-paper-plane"> Send</i></button>
+            <button class="btn btn-sm btn-success send-btn"> Send</button>
         </form>
     </div>
+
 </body>
+
+<script>
+
+    let chat = document.createElement('div')
+    chat = document.querySelector(".chat-container");
+    let editor = document.createElement('div')
+    editor = document.querySelector(".editor-container");
+    let printbtn = document.createElement('button');
+    printbtn = document.querySelector(".print");
+
+    function changeLayout(change) {
+
+        if (change.matches) {
+            document.querySelector(".chat-container").remove();
+            document.querySelector(".editor-container").remove();
+            document.querySelector(".print").remove();
+
+            let godDiv = document.createElement('div');
+            godDiv.className = "god";
+            godDiv.innerHTML = `
+            <nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Document-Page</button>
+    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Chat-Room</button>
+  </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"></div>
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"></div>
+</div>
+            `;
+
+            document.body.append(godDiv);
+            document.querySelector('#nav-home').appendChild(editor); 
+            document.querySelector('#nav-home').appendChild(printbtn); 
+            document.querySelector('#nav-profile').appendChild(chat);
+
+
+        }
+        else {
+            if(document.querySelector(".god") != null)
+                document.querySelector(".god").remove();
+            document.body.append(printbtn);
+            document.body.append(editor);
+            document.body.append(chat);
+
+        }
+
+
+    }
+    var change = window.matchMedia("(max-width:1175px)");
+    changeLayout(change);
+    change.addListener(changeLayout);
+</script>
 
 
 

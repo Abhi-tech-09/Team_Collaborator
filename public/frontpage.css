@@ -121,7 +121,7 @@ body{
 .auth{
     position: absolute;
     top: 5rem;
-    right: 5rem;
+    right: 4rem;
     display: flex;
 }
 
@@ -246,14 +246,24 @@ body{
 
 
 .signinform{
-    padding-left: 85px;
+    padding-top : 20px !important ; 
+    padding-bottom: 20px !important;
+    padding-left: 70px !important;
+    padding-right:70px !important;
+        margin: 0px !important;
+        min-width : 20px !important;
     background: none;
     font-size: 18px;
     font-family: 'Open Sans', sans-serif;;
 }
 
 .loginform{
-    padding-left: 85px;
+    padding-top : 20px !important ; 
+    padding-bottom: 20px !important;
+    padding-left: 70px !important;
+    padding-right:70px !important;
+        margin: 0px !important;
+        min-width : 20px !important;
     background: none;
     font-size: 18px;
     border-radius: 10px;
@@ -266,14 +276,15 @@ body{
     outline: none;
     display: block;
     border: 0;
-    font-size: 16px;
+    font-size: large !important;
     line-height: 1;
-    padding: 16px 30px;
+    padding: 20px !important;
     border-radius: 30px;
     background-color: #ec2c7f;
     color: #ffffff;
     cursor: pointer;
     transition: all 0.3s linear;
+  
     font-family: 'Open Sans', sans-serif;;
 }
 .signin:hover,
@@ -287,9 +298,9 @@ body{
     outline: none;
     display: block;
     border: 0;
-    font-size: 16px;
+    font-size: large !important;
     line-height: 1;
-    padding: 16px 30px;
+    padding: 20px !important;
     border-radius: 30px;
     background-color: #e58d18;
     color: #ffffff;
@@ -324,10 +335,6 @@ body{
     100%   { transform: translate(0, -0px); }   
 }
 
-.google{
-    position: relative;
-    left: 637px;
-}
 
 form {
     border: 1px solid var(--color-bg-secondary);
@@ -349,7 +356,7 @@ form {
         position: absolute;
         top:60%; 
         left:50%; 
-        transform: translate(-50%,-50%);
+        transform: translate(-50%,-40%);
         width:45%;
     }
     .elements{
@@ -363,6 +370,23 @@ form {
 @media only screen and (max-width:795px){
     .combined{
         width: 70%;
+    }
+
+    .signinform{
+        padding : 5px !important ; 
+        margin: 0px !important;
+        min-width : 20px !important; 
+    }
+    .loginform{
+        padding : 5px !important ; 
+        margin: 0px !important;
+        min-width : 20px !important; 
+    }
+    .signin{
+        padding : 5px !important ; 
+    }
+    .login{
+        padding: 5px !important;
     }
 }
 @media only screen and (max-width:430px){
@@ -380,7 +404,29 @@ form {
         text-align: center;
     }
     .combined{
-        top:65%;
+        top:64%;
         width: 100vw;
+    }
+    .create{
+        width : 100% ; 
+    }
+    .auth{
+        right : 2rem; 
+    }
+    .signinform{
+        padding : 5px !important ; 
+        margin: 0px !important;
+        min-width : 20px !important; 
+    }
+    .loginform{
+        padding : 5px !important ; 
+        margin: 0px !important;
+        min-width : 20px !important; 
+    }
+    .signin{
+        padding : 5px !important ; 
+    }
+    .login{
+        padding: 5px !important;
     }
 }

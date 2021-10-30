@@ -8,7 +8,7 @@
     <title>Doc-Fluent</title>
     <link rel="icon" type="image/png" sizes="32x32" href="images/icon.png">
     <!-- for css -->
-    <link rel="stylesheet" href="mvp.css">
+    <!-- <link rel="stylesheet" href="mvp.css"> -->
     <link rel="stylesheet" href="frontpage.css">
     <!-- fonts for content -->
     
@@ -33,11 +33,14 @@
                 <a class="navbar-brand" href="#">
                     <img src="images/icon.png" alt="" width="30" height="24">
                 </a>
+               
+                
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
@@ -60,16 +63,28 @@
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
                             </ul>
                         </li>
+                        <li class="nav-item">
+                            <button class="btn btn-sm btn-light google">
+                                <a >
+                                    <img width="15px" style="margin-bottom:3px; margin-right:5px" alt="Google login"
+                                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                                    Sign in with Google
+                                </a>
+                            </button>
+                        </li>
                     </ul>
+                    
                 </div>
+                
             </div>
         </nav>
     </div>
 
+
     <div class="auth">
-        <form class="signinform" method="get" action='/signUp'><button type="submit" class="signin"> Sign UP </button>
+        <form class="signinform" method="get" action='/signUp'><button type="submit" class="btn-sm signin"> Sign UP </button>
         </form>
-        <form class="loginform" method="get" action="/logIn"><button type="submit" class="login"> Log IN </button>
+        <form class="loginform" method="get" action="/logIn"><button type="submit" class="btn-sm login"> Log IN </button>
         </form>
         
     </div>
