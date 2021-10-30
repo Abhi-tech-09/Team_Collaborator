@@ -490,25 +490,3 @@ h1 {
         grid-gap : 0.5rem ;
     }
 } 
-<<<<<<< HEAD
-
-.videoContainer{
-    width: 35%;
-    height: 60%;
-    position: absolute;
-    top: 19%;
-    z-index: 20;
-    right: 1%;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 40%);
-    grid-auto-rows: 40%;
-
-}
-
-.videoContainer > video{
-    object-fit: cover; 
-    width : 80%;
-    margin : 10px ; 
-}
-=======
->>>>>>> devEnv
