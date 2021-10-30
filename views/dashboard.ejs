@@ -29,38 +29,42 @@
 
 <body>
     <div class="wrapper">
-        <nav class="navbar navbar-expand-lg navbar-dark justify-content-between"
-            style="background-color: rgba(6, 6, 44, 0.26); color: white;">
-            <!-- <a class="navbar-brand" href="/">Navbar</a> -->
-            <img class="image" src="/images/icon.png" width="50" height="50" style="margin: 0;">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/index.js">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/index.js">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/index.js">Contact Us</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="/index.js">Ask Help</a>
-                    </li>
-
-                </ul>
-
-
+        <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: rgb(0 0 0 / 24%);">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="images/icon.png" alt="" width="30" height="24">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
-
-
     </div>
 
     <img class="animated" src="/images/docfluent.png" style="margin-left: 5rem;">
@@ -140,10 +144,14 @@
 <script src="firebase_config.js"></script>
 <script type='module'>
 
-    const ele = document.createElement('h5');
+    const ele = document.createElement('span');
     ele.innerHTML = `Hi ${user.user.name} !!`;
-    ele.className = "username"
-    document.querySelector(".collapse").appendChild(ele);
+    ele.className = "username badge bg-light text-dark"
+    let toggler = document.createElement('button');
+    toggler = document.querySelector(".navbar-toggler");
+    document.querySelector(".navbar-toggler").remove();
+    document.querySelector(".container-fluid").appendChild(ele);
+    document.querySelector(".container-fluid").appendChild(toggler);
     const firebaseConfig = {
         apiKey: "AIzaSyBvOJwAjPy34RM9eG7fsQOYxG8U6b838YE",
         authDomain: "teamcollabarator.firebaseapp.com",
