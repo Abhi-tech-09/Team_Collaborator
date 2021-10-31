@@ -39,7 +39,7 @@
                         <input type="text" name="email" class="input-center" placeholder="you@gmail.com" /><br>
                         <label>Password</label>
                         <input type="password" name="password" class="input-center" placeholder="Password" /><br>
-                        <button style="background-color: #0c610f;">Sign up</button>
+                        <button type="submit" style="background-color: #0c610f;">Sign up</button>
                     </div>
 
                 </form>
@@ -50,7 +50,16 @@
             <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-database.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
             <script src="firebase_config.js"></script>
-            <script type = "module">
+            <script type="module">
+                const firebaseConfig = {
+                    apiKey: "AIzaSyBvOJwAjPy34RM9eG7fsQOYxG8U6b838YE",
+                    authDomain: "teamcollabarator.firebaseapp.com",
+                    databaseURL: "https://teamcollabarator-default-rtdb.firebaseio.com",
+                    projectId: "teamcollabarator",
+                    storageBucket: "teamcollabarator.appspot.com",
+                    messagingSenderId: "42443602275",
+                    appId: "1:42443602275:web:7bcc482cb7a14210f83b56"
+                };
 
                 firebase.initializeApp(firebaseConfig);
 
@@ -70,7 +79,7 @@
                             .then(({ user }) => {
 
                                 var ref = firebase.database().ref();
-                                em = email.replaceAll(".com", "")
+                                let em = email.replaceAll(".com", "")
                                 ref.child('users/' + em).set({ name: username }).then((res) => {
                                     window.location.assign("/logIn");
                                 })

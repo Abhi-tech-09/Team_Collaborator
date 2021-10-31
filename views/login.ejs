@@ -57,7 +57,15 @@
 <script type="module">
     window.addEventListener("DOMContentLoaded", () => {
 
-
+        const firebaseConfig = {
+            apiKey: "AIzaSyBvOJwAjPy34RM9eG7fsQOYxG8U6b838YE",
+            authDomain: "teamcollabarator.firebaseapp.com",
+            databaseURL: "https://teamcollabarator-default-rtdb.firebaseio.com",
+            projectId: "teamcollabarator",
+            storageBucket: "teamcollabarator.appspot.com",
+            messagingSenderId: "42443602275",
+            appId: "1:42443602275:web:7bcc482cb7a14210f83b56"
+        };
         firebase.initializeApp(firebaseConfig);
 
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
@@ -68,8 +76,6 @@
                 event.preventDefault();
                 const login = event.target.login.value;
                 const password = event.target.password.value;
-
-
                 firebase
                     .auth()
                     .signInWithEmailAndPassword(login, password)
@@ -87,7 +93,7 @@
                                         Accept: "application/json",
                                         "Content-Type": "application/json",
                                     },
-                                    body: JSON.stringify({ username: username, email: login , userImage : null  }),
+                                    body: JSON.stringify({ username: username, email: login, userImage: null }),
                                 }).then(response => {
                                     response.json().then(data => {
                                         window.location.assign('/dashboard')

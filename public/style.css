@@ -92,7 +92,7 @@ body{
 .right{
     display: grid;
     grid-template-rows: 1fr 2fr;
-    background: #c4ecc9;
+  
     width: fit-content;
     min-width: 50%;
     float: right;
@@ -104,7 +104,7 @@ body{
 .left{
     display: grid;
     grid-template-rows: 1fr 2fr;
-    background-color: #eab5cf;
+    
     width:fit-content ; 
     min-width: 50%;
     float : left ; 
