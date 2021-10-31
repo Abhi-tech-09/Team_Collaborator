@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login | Doc-Fluent</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/login.png">
     <link rel="stylesheet" href="./mvp.css" />
     <!-- <link rel="stylesheet" href="frontpage.css"> -->
     <link rel="stylesheet" href="style.css">
@@ -35,6 +35,8 @@
 
 
     </div>
+
+    <a href="/" style="position: absolute;"><img src="images/back.png"></a>
     <div class="box">
         <div></div>
         <div></div>
@@ -95,7 +97,7 @@
                                         Accept: "application/json",
                                         "Content-Type": "application/json"
                                     },
-                                    body: JSON.stringify({ username: username, email: login , userImage : null  }),
+                                    body: JSON.stringify({ username: username, email: login, userImage: null }),
                                 }).then(response => {
                                     response.json().then(data => {
                                         window.location.assign('/dashboard')
