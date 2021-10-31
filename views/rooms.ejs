@@ -90,9 +90,12 @@
     editor = document.querySelector(".editor-container");
     let printbtn = document.createElement('button');
     printbtn = document.querySelector(".print");
+    let print_flag = 0;
 
     function changeLayout(change) {
-
+        if (print_flag == 1) {
+            return;
+        }
         if (change.matches) {
             document.querySelector(".chat-container").remove();
             document.querySelector(".editor-container").remove();
@@ -112,11 +115,17 @@
   <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"></div>
 </div>
             `;
-
-            document.body.append(godDiv);
-            document.querySelector('#nav-home').appendChild(editor);
-            document.querySelector('#nav-home').appendChild(printbtn);
-            document.querySelector('#nav-profile').appendChild(chat);
+            if (document.querySelector(".god") == null) {
+                document.body.append(godDiv);
+                document.querySelector('#nav-home').appendChild(editor);
+                document.querySelector('#nav-home').appendChild(printbtn);
+                document.querySelector('#nav-profile').appendChild(chat);
+            }
+            else {
+                document.querySelector('#nav-home').appendChild(editor);
+                document.querySelector('#nav-home').appendChild(printbtn);
+                document.querySelector('#nav-profile').appendChild(chat);
+            }
 
 
         }
@@ -131,6 +140,7 @@
 
 
     }
+
     var change = window.matchMedia("(max-width:1175px)");
     changeLayout(change);
     change.addListener(changeLayout);

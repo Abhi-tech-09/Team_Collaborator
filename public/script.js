@@ -61,14 +61,22 @@ document.querySelector('.print').addEventListener('click', e => {
     document.querySelector(".chat-container").style.display = "none";
     document.querySelector(".editor-container").style.display = "none";
     document.querySelector('.print').style.display = "none";
+    if (document.querySelector('.god') != null) {
+        document.querySelector('.god').style.display = "none";
+    }
     const printDiv = document.createElement('div');
     printDiv.innerHTML = document.querySelector(".ql-editor").innerHTML
     document.body.append(printDiv);
+    print_flag = 1;
     window.print();
+    print_flag = 0;
     document.body.removeChild(printDiv);
     document.querySelector(".chat-container").style.display = "grid";
     document.querySelector(".editor-container").style.display = "block";
     document.querySelector('.print').style.display = "block";
+    if (document.querySelector('.god') != null) {
+        document.querySelector('.god').style.display = "block";
+    }
 
 })
 
