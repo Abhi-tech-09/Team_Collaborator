@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login | Doc-Fluent</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/login.png">
     <link rel="stylesheet" href="./mvp.css" />
     <!-- <link rel="stylesheet" href="frontpage.css"> -->
     <link rel="stylesheet" href="style.css">
@@ -35,6 +35,8 @@
 
 
     </div>
+
+    <a href="/" style="position: absolute;"><img src="images/back.png"></a>
     <div class="box">
         <div></div>
         <div></div>
@@ -57,15 +59,7 @@
 <script type="module">
     window.addEventListener("DOMContentLoaded", () => {
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyBvOJwAjPy34RM9eG7fsQOYxG8U6b838YE",
-            authDomain: "teamcollabarator.firebaseapp.com",
-            databaseURL: "https://teamcollabarator-default-rtdb.firebaseio.com",
-            projectId: "teamcollabarator",
-            storageBucket: "teamcollabarator.appspot.com",
-            messagingSenderId: "42443602275",
-            appId: "1:42443602275:web:7bcc482cb7a14210f83b56"
-        };
+
         firebase.initializeApp(firebaseConfig);
 
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
@@ -76,6 +70,8 @@
                 event.preventDefault();
                 const login = event.target.login.value;
                 const password = event.target.password.value;
+
+
                 firebase
                     .auth()
                     .signInWithEmailAndPassword(login, password)
