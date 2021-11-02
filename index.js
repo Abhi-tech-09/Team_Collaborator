@@ -174,7 +174,9 @@ io.on('connection', socket => {
                 room: room,
                 users: rooms[room].users
             })
-            console.log(files)
+            console.log(rooms);
+            console.log(chats);
+            console.log(files);
         })
     })
 

@@ -3,7 +3,9 @@ const socket = io('http://localhost:3000');
 const messageContainer = document.getElementById('message-container');
 const messageForm = document.getElementById('send-container');
 const messageInput = document.getElementById('message-input');
-
+const color = ['#118bee', '#118bee15', '#920de9', '#ff0000ba', '#999', '#eab5cf', '#c4ecc9', '#A6963A', '#91CD7A', '#EB1E73'];
+let randColorleft = Math.floor(Math.random() * 9);
+let randColorright = Math.floor(Math.random() * 9);
 
 const toolbar_options = [
     [{ header: [1, 2, 3, 4, 5, 6, false] }],
@@ -162,6 +164,10 @@ socket.on('user-disconnected', nameuser => {
 function appendMessage(message, position) {
     const messageElement = document.createElement('div');
     messageElement.className = position;
+    if (position == "left")
+        messageElement.style.backgroundColor = color[randColorleft];
+    else
+        messageElement.style.backgroundColor = color[randColorright];
     messageElement.style.display = "block";
     messageElement.innerText = message;
     console.log(messageElement);
@@ -172,6 +178,10 @@ function appendMessage(message, position) {
 function appendformatMessage({ name, message }, position) {
     const messageElement = document.createElement('div');
     messageElement.className = position;
+    if (position == "left")
+        messageElement.style.backgroundColor = color[randColorleft];
+    else
+        messageElement.style.backgroundColor = color[randColorright];
     messageElement.innerHTML = `<div class="name"><span class="badge rounded-pill bg-warning text-dark">${name}</span></div>
     <div class="actualMessage">
         ${message}
