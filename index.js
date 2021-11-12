@@ -6,6 +6,7 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const keys = require("./keys.json");
+const { ExpressPeerServer } = require('peer');
 const { Stream } = require("stream");
 
 admin.initializeApp({
@@ -22,6 +23,12 @@ app.use(express.urlencoded({
 }))
 app.use(cookieParser());
 app.use(express.json());
+server.listen(3000);
+// const srv = app.listen(3001) ; 
+// const peerServer = ExpressPeerServer(srv, {
+//     debug : true
+//   });
+// app.use('/peerjs', peerServer);
 
 
 let rooms = {}
@@ -144,7 +151,7 @@ app.get('/:room', (req, res) => {
 })
 
 
-server.listen(3000);
+
 
 io.on('connection', socket => {
 
@@ -166,17 +173,7 @@ io.on('connection', socket => {
 
     })
 
-    socket.on('disconnect', () => {
-        getUserRooms(socket).forEach(room => {
-            socket.to(room).emit('user-disconnected', rooms[room].users[socket.id])
-            delete rooms[room].users[socket.id];
-            io.to(room).emit('roomUsers', {
-                room: room,
-                users: rooms[room].users
-            })
-            console.log(files)
-        })
-    })
+   
 
     socket.on('delete-room', room => {
         delete rooms[room];
@@ -190,9 +187,26 @@ io.on('connection', socket => {
         console.log(delta);
         socket.to(room).emit('receive-changes', delta);
     })
+    socket.on('disconnect', () => {
+        getUserRooms(socket).forEach(room => {
+            socket.to(room).emit('user-disconnected', rooms[room].users[socket.id])
+            delete rooms[room].users[socket.id];
+            io.to(room).emit('roomUsers', {
+                room: room,
+                users: rooms[room].users
+            })
+            console.log(files)
+        })
+        // io.emit('user-video-disconnected' , userId) ; 
+        
+    })
 
-    socket.on('video-on', (roomName, stream) => {
-        socket.to(roomName).emit('add-video', stream);
+    socket.on('join-video-room', (roomName, userId) => {
+        // console.log("stream",stream);
+        // console.log(roomName);
+        io.to(roomName).emit('user-video-connected', userId);
+       
+
     })
 
 })
