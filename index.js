@@ -166,17 +166,7 @@ io.on('connection', socket => {
 
     })
 
-    socket.on('disconnect', () => {
-        getUserRooms(socket).forEach(room => {
-            socket.to(room).emit('user-disconnected', rooms[room].users[socket.id])
-            delete rooms[room].users[socket.id];
-            io.to(room).emit('roomUsers', {
-                room: room,
-                users: rooms[room].users
-            })
-            console.log(files)
-        })
-    })
+   
 
     socket.on('delete-room', room => {
         delete rooms[room];
@@ -190,7 +180,26 @@ io.on('connection', socket => {
         console.log(delta);
         socket.to(room).emit('receive-changes', delta);
     })
+    socket.on('disconnect', () => {
+        getUserRooms(socket).forEach(room => {
+            socket.to(room).emit('user-disconnected', rooms[room].users[socket.id])
+            delete rooms[room].users[socket.id];
+            io.to(room).emit('roomUsers', {
+                room: room,
+                users: rooms[room].users
+            })
+            console.log(files)
+        })
+        // io.emit('user-video-disconnected' , userId) ; 
+        
+    })
 
+    socket.on('join-video-room', (roomName, userId) => {
+        // console.log("stream",stream);
+        // console.log(roomName);
+        io.to(roomName).emit('user-video-connected', userId);
+       
+    })
 
 })
 
