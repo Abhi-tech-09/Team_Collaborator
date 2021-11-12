@@ -7,7 +7,7 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const keys = require("./keys.json");
 const port = process.env.PORT || 3000;
-server.listen(port);
+
 
 admin.initializeApp({
     credential: admin.credential.cert(keys),
@@ -29,7 +29,7 @@ let rooms = {}
 let chats = {};
 let files = {};
 
-
+server.listen(port);
 
 
 app.get('/', (req, res) => {
