@@ -1,25 +1,33 @@
 const peers = {}
-let videoFlag = 0 ;
+let videoFlag = 0;
+
+let myPeer;
+let currPeer;
+let str;
+
 
 document.querySelector(".video").addEventListener('click', e => {
-
-    if(videoFlag == 1){
-        videoFlag = 0 ; 
-        return  
+    myPeer = new Peer();
+    if (videoFlag == 1) {
+        videoFlag = 0;
+        return
     }
-    videoFlag = 1 ; 
-    const myPeer = new Peer();
+    videoFlag = 1;
+
     myPeer.on('open', id => {
         console.log("This is my id : ", id);
         socket.emit('join-video-room', roomName, id)
     })
 
+   
+
     let myVideo = document.createElement('video');
-    myVideo.muted = false;
+    myVideo.muted = true;
     navigator.mediaDevices.getUserMedia({
         video: true,
         audio: true
     }).then(stream => {
+        str = stream;
         addVideoStream(myVideo, stream)
 
         myPeer.on('call', call => {
@@ -29,10 +37,12 @@ document.querySelector(".video").addEventListener('click', e => {
             call.on('stream', userVideoStream => {
                 addVideoStream(video, userVideoStream)
             })
+            currPeer = call;
         })
 
         socket.on('user-video-connected', userId => {
             console.log("userId found ", userId);
+            if (userId == myPeer.id) return;
             setTimeout(connectToNewUser, 3000, userId, stream);
         })
 
@@ -40,6 +50,7 @@ document.querySelector(".video").addEventListener('click', e => {
             console.log("Connecting");
             console.log("Calling the other user with id : ", userId)
             const call = myPeer.call(userId, stream)
+            currPeer = call;
             const video = document.createElement('video')
             call.on('stream', userVideoStream => {
                 console.log("Ading video after calling");
@@ -50,6 +61,7 @@ document.querySelector(".video").addEventListener('click', e => {
             })
 
             peers[userId] = call
+            currPeer = call ; 
         }
 
 
@@ -66,21 +78,15 @@ socket.on('user-video-disconnected', userId => {
 
 function addVideoStream(video, stream) {
     // const media = new MediaStream(); 
+    video.controls = true ;
     console.log("Adding new video");
     // console.log(stream);
+    str = stream ; 
     video.srcObject = stream;
     video.addEventListener('loadedmetadata', () => {
         video.play().catch(err => { console.log(err); })
     })
     document.querySelector(".videoContainer").appendChild(video)
-    const i = document.createElement('i') ; 
-    i.className = "fas fa-microphone" ; 
-    i.addEventListener('click',e=>{
-        e.preventDefault(); 
-        video.muted = !video.muted ;
-        video.stop();
-    })
-    document.querySelector(".videoContainer").appendChild(i) ; 
 }
 
 
@@ -135,7 +141,7 @@ var displayMediaOptions = {
 
 
 let screenShareFlag = 0;
-
+let screenStream ; 
 document.querySelector(".ss").addEventListener('click', async (e) => {
     e.preventDefault();
     try {
@@ -146,20 +152,62 @@ document.querySelector(".ss").addEventListener('click', async (e) => {
             tracks.forEach(track => track.stop());
             document.querySelector(".screenShare").innerHTML = "";
             document.querySelector(".screenShare").style.display = "none";
+           stopScreenSharing();
             return;
 
         }
 
         let video = document.createElement('video');
-        video.srcObject = await navigator.mediaDevices.getDisplayMedia(displayMediaOptions);
-        document.querySelector(".screenShare").append(video);
-        document.querySelector(".screenShare").style.display = "block";
-        video.addEventListener('loadedmetadata', () => {
-            video.play().catch(err => { console.log(err); })
-        })
-        screenShareFlag = 1;
+        video.controls = true ; 
+        navigator.mediaDevices.getDisplayMedia(displayMediaOptions).then(stream => {
+            addScreenShare(video,stream);
+            if(myPeer == null)return ; 
+
+            let videoTrack = stream.getVideoTracks()[0];
+            videoTrack.onended = () => {
+                stopScreenSharing()
+            }
+            let sender = currPeer.peerConnection.getSenders().find(function(s){
+                return s.track.kind == videoTrack.kind;
+            })
+
+            sender.replaceTrack(videoTrack);
+
+            
+        });
+
     }
     catch (err) {
         console.log(err);
     }
 })
+
+function addScreenShare(video,stream){
+    video.srcObject = stream
+    screenStream = stream ; 
+    document.querySelector(".screenShare").append(video);
+    document.querySelector(".screenShare").style.display = "block";
+    video.addEventListener('loadedmetadata', () => {
+        video.play().catch(err => { console.log(err); })
+    })
+    screenShareFlag = 1;
+}
+
+function stopScreenSharing() {  
+    alert("hello")
+    let videoTrack = str.getVideoTracks()[0] ; 
+    if(myPeer){
+        let sender = currPeer.peerConnection.getSenders().find(function (s) {
+            return s.track.kind == videoTrack.kind;
+        })
+        sender.replaceTrack(videoTrack)
+    }
+    screenStream.getTracks().forEach(function (track) {
+        track.stop();
+    });
+
+
+    
+}
+
+

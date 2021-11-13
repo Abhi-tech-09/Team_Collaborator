@@ -209,6 +209,8 @@ io.on('connection', socket => {
 
     })
 
+    
+
 })
 
 function getUserRooms(socket) {
