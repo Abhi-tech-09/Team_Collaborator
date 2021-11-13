@@ -470,6 +470,9 @@ h1 {
     .ql-toolbar.ql-snow{
         height : fit-content ; 
     }
+    .screenShare{
+        width : 100% ; 
+    }
 }  
 @media only screen and (max-width:700px){
     #editor{
@@ -498,12 +501,13 @@ h1 {
 
 .videoContainer{
     position: absolute;
-    top: 19%;
+    top: 8%;
     z-index: 40;
-    left: 5%;
+    left: 60%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, 200px);
-    cursor : pointer ; 
+    grid-template-columns: repeat(auto-fit, 30%);
+    cursor: pointer;
+    border : 2px outset black ; 
 }
 
 .videoContainer > video{
@@ -514,7 +518,7 @@ h1 {
     
 }
 .screenShare{
-    display: none;
+    display: none;  
     position: absolute;
 z-index : 30 ; width: 60% ;
 height  : 100% ; 
