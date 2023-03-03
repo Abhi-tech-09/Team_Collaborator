@@ -5,7 +5,7 @@ const admin = require("firebase-admin");
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-const keys = require("./keys.json");
+const keys = require("../keys.json");
 const { Stream } = require("stream");
 
 admin.initializeApp({
@@ -118,7 +118,7 @@ app.post('/room', (req, res) => {
         console.log("Room already exists already");
         return res.redirect('/');
     }
-    roomStr = req.body.room.trim();
+    let roomStr = req.body.room.trim();
     rooms[roomStr] = { users: {} };
     chats[roomStr] = [];
     res.redirect(roomStr);
