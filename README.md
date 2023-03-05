@@ -1,6 +1,6 @@
 <h1 align="center"> 
 
- **Doc-Fluent** 
+ Doc-Fluent
 
 </h1>
 
@@ -18,8 +18,10 @@ With DocFluent, collaboration with your teammates will be easier than ever befor
 </h4>
 
  Note : The fully-functional code is located in the devEnv branch of this repo. 
+ <br/>
 
-# **Tech Used**
+### Tech Used
+
 - CSS3
 - [EJS](https://ejs.co/)
 - [Bootstrap](https://getbootstrap.com/)
@@ -31,58 +33,61 @@ With DocFluent, collaboration with your teammates will be easier than ever befor
 
 <br/>
 
-# **Features explained**
+# Features explained
 <br/>
 
-## *Create Rooms*
+## Create Rooms
 
 Here you can create rooms which provides you with a editor for reports and a chatting interface.
 <img src="./Videos/createroom.gif" />
 
 <br/>
 
-## *Responsiveness*
+## Responsiveness
 
 The rooms are responsive to some extent where the layout switches to tabs mode when the width crosses certain threshold. 
-
+<br/>
 <img src="./Videos/responsiveness.gif" />
 <br/>
 
-## *Synchronisation*
+## Synchronisation
 
 The changes are visible to each user in the room. The file data  can also be saved into your local machine.  
-
+<br/>
 <img src="./Videos/synchronised.gif" />
 <br/>
 
-## *Functionalities*
+## Functionalities
 
-- ## Saving files
-    <img src="./Videos/print.gif" />
+- Saving files
+<br/>
+<img src="./Videos/print.gif" />
 <br/>
 
-* ## Calendar
-    <img src="./Videos/calendar.gif" />
+- Calendar
+<br/>
+<img src="./Videos/calendar.gif" />
 <br/>
 
-* ## Create instant meet
-    <img src="./Videos/meet.gif" />
+- Create instant meet
+<br/>
+<img src="./Videos/meet.gif" />
     
-<br>
+<br/>
 
 
 
-# **Authentication**
+# Authentication
 
 Used firebase authentication and realtime database to store the usernames. 
 
-<br>
+<br/>
 
-# **Contributors**
+# Contributors
 <strong>
 
-- [Abhishek Sharma](https://github.com/Abhi-tech-09)
-    - [LinkedIn](https://www.google.com)
+- <a href="https://github.com/Abhi-tech-09">Abhishek Sharma</a>
+    - <a href="https://www.linkedin.com/in/abhishek-sharma-9904891b8/">LinkedIn</a>
 
 
 </strong> 
