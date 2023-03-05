@@ -1,6 +1,6 @@
 <h1 align="center"> 
 
-**_Doc-Fluent_** 
+**Doc-Fluent** 
 
 </h1>
 
@@ -15,24 +15,24 @@ With DocFluent, collaboration with your teammates will be easier than ever befor
 
 <h4>
 
-[DocFluent ](https://team-collaborator.herokuapp.com/home) is an attempt to combine google doc with chat application feature. 
+[DocFluent](https://team-collaborator.herokuapp.com/home) is an attempt to combine google doc with chat application feature. 
 </h4>
 
-> Note : The fully-functional code is located in the devEnv branch of this repo. 
+ Note : The fully-functional code is located in the devEnv branch of this repo. 
 
-# _**Tech Used**_
-* CSS3
-* [EJS](https://ejs.co/)
-* [Bootstrap](https://getbootstrap.com/)
-* [Express](https://expressjs.com/)
-* Socket.IO
-* [Firebase](https://firebase.google.com/)
-* [Quill.js](https://quilljs.com/)
-* [JsonWebToken](https://jwt.io/)
+# **Tech Used**
+- CSS3
+- [EJS](https://ejs.co/)
+- [Bootstrap](https://getbootstrap.com/)
+- [Express](https://expressjs.com/)
+- Socket.IO
+- [Firebase](https://firebase.google.com/)
+- [Quill.js](https://quilljs.com/)
+- [JsonWebToken](https://jwt.io/)
 
 <br>
 
-# _**Features explained**_
+# **Features explained**
 <br>
 
 ## *Create Rooms*
@@ -69,7 +69,7 @@ The changes are visible to each user in the room. The file data  can also be sav
 
 
 
-# _**Authentication**_
+# **Authentication**
 
 Used firebase authentication and realtime database to store the usernames. 
 
