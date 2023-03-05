@@ -4,7 +4,7 @@
 
 </h1>
 
-## Hello Everyone! 
+<h2> Hello Everyone! </h2> 
 <h4>
 
 Writing a group report or preparing collaborative documents is a tedious task as it requires to have a different platform for composing a multiparty Google Docs, a platform for communication and a different platform for hosting meets. 
@@ -21,7 +21,7 @@ With DocFluent, collaboration with your teammates will be easier than ever befor
  Note : The fully-functional code is located in the devEnv branch of this repo. 
  <br/>
 
-### Tech Used
+## Tech Used
 
 - CSS3
 - [EJS](https://ejs.co/)
