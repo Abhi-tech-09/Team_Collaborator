@@ -1,6 +1,6 @@
 <h1 align="center"> 
 
-**Doc-Fluent** 
+ **Doc-Fluent** 
 
 </h1>
 
@@ -10,12 +10,11 @@
 Writing a group report or preparing collaborative documents is a tedious task as it requires to have a different platform for composing a multiparty Google Docs, a platform for communication and a different platform for hosting meets. 
 
 With DocFluent, collaboration with your teammates will be easier than ever before, Host a meet, prepare a doc and even chat with your teammates, all in one place!
-<br>
-<br>
+<br/>
+<br/>
 
 <h4>
-
-[DocFluent](https://team-collaborator.herokuapp.com/home) is an attempt to combine google doc with chat application feature. 
+    DocFluent is an attempt to combine google doc with chat application feature. 
 </h4>
 
  Note : The fully-functional code is located in the devEnv branch of this repo. 
@@ -30,41 +29,45 @@ With DocFluent, collaboration with your teammates will be easier than ever befor
 - [Quill.js](https://quilljs.com/)
 - [JsonWebToken](https://jwt.io/)
 
-<br>
+<br/>
 
 # **Features explained**
-<br>
+<br/>
 
 ## *Create Rooms*
 
 Here you can create rooms which provides you with a editor for reports and a chatting interface.
+<img src="./Videos/createroom.gif" />
 
-![](/Videos/createroom.gif)
+<br/>
 
 ## *Responsiveness*
 
 The rooms are responsive to some extent where the layout switches to tabs mode when the width crosses certain threshold. 
 
-![](/Videos/responsiveness.gif)
-
+<img src="./Videos/responsiveness.gif" />
+<br/>
 
 ## *Synchronisation*
 
 The changes are visible to each user in the room. The file data  can also be saved into your local machine.  
 
-![](/Videos/synchronised.gif)
-
+<img src="./Videos/synchronised.gif" />
+<br/>
 
 ## *Functionalities*
 
-* ## Saving files
-    ![](/Videos/print.gif) 
+- ## Saving files
+    <img src="./Videos/print.gif" />
+<br/>
 
 * ## Calendar
-    ![](/Videos/calendar.gif)
+    <img src="./Videos/calendar.gif" />
+<br/>
 
 * ## Create instant meet
-    ![](Videos/meet.gif)
+    <img src="./Videos/meet.gif" />
+    
 <br>
 
 
@@ -75,11 +78,11 @@ Used firebase authentication and realtime database to store the usernames.
 
 <br>
 
-# _**Contributors**_
+# **Contributors**
 <strong>
 
-* [Abhishek Sharma](https://github.com/Abhi-tech-09)
-    * [LinkedIn](https://www.google.com)
+- [Abhishek Sharma](https://github.com/Abhi-tech-09)
+    - [LinkedIn](https://www.google.com)
 
 
 </strong> 
