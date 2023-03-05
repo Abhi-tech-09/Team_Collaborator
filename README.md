@@ -10,6 +10,7 @@
 Writing a group report or preparing collaborative documents is a tedious task as it requires to have a different platform for composing a multiparty Google Docs, a platform for communication and a different platform for hosting meets. 
 
 With DocFluent, collaboration with your teammates will be easier than ever before, Host a meet, prepare a doc and even chat with your teammates, all in one place!
+</h4>
 <br/>
 <br/>
 
